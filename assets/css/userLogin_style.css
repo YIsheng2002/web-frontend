@@ -1,0 +1,235 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Left side - Order section */
+.order-section {
+    flex: 1;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
+                    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect fill="%23654321" width="800" height="600"/><circle fill="%238B4513" cx="200" cy="150" r="80" opacity="0.3"/><circle fill="%23A0522D" cx="600" cy="300" r="120" opacity="0.2"/><circle fill="%23CD853F" cx="400" cy="450" r="60" opacity="0.4"/></svg>');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+    color: white;
+}
+
+.header {
+    background-color: #E74C3C;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 8px;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.order-content {
+    max-width: 500px;
+}
+
+.order-badge {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border-radius: 50%;
+    margin-bottom: 40px;
+}
+
+.order-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    line-height: 1.2;
+}
+
+.order-description {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    opacity: 0.95;
+}
+
+.tulang-text {
+    position: absolute;
+    bottom: 80px;
+    left: 60px;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.1);
+    letter-spacing: 15px;
+    z-index: 1;
+}
+
+.pasir-gudang {
+    position: absolute;
+    bottom: 40px;
+    left: 140px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 8px;
+    font-weight: 300;
+}
+
+/* Right side - Sign in section */
+.signin-section {
+    flex: 1;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+}
+
+.signin-form {
+    width: 100%;
+    max-width: 400px;
+}
+
+.signin-title {
+    font-size: 36px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    background-color: white;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #E74C3C;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.forgot-password a {
+    color: #666;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.signin-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #999;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.signin-button:hover {
+    background-color: #777;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 25px;
+    color: #666;
+    font-size: 14px;
+}
+
+.signup-link a {
+    color: #333;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .order-section {
+        flex: none;
+        height: 60vh;
+        padding: 40px 30px;
+    }
+    
+    .signin-section {
+        flex: none;
+        height: 40vh;
+        padding: 30px;
+    }
+    
+    .order-title {
+        font-size: 36px;
+    }
+    
+    .tulang-text {
+        font-size: 80px;
+        bottom: 40px;
+        left: 30px;
+    }
+    
+    .pasir-gudang {
+        bottom: 20px;
+        left: 80px;
+        font-size: 16px;
+    }
+}

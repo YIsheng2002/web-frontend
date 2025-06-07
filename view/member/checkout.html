@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUP TULANG ZZ - Order Cart</title>
+    <link rel="stylesheet" href="../../assets/css/checkout_style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="../../assets/images/logo.png" alt="SUP TULANG ZZ Logo" class="logo-img">
+                <span class="logo-text">SUP TULANG ZZ</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Order Header -->
+            <h1 class="order-title">Order Cart #12456</h1>
+
+            <!-- Cart Items -->
+            <div class="cart-items">
+                <!-- Cart Item 1 -->
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="../../assets/images/cheese_burger.png" alt="Cheese Burger">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">Cheese Burger</h3>
+                        <p class="item-price">$3.88</p>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-item="1">-</button>
+                            <span class="quantity" data-item="1">1</span>
+                            <button class="quantity-btn plus-btn" data-item="1">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart Item 2 -->
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="../../assets/images/cheese_burger.png" alt="Cheese Burger">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">Cheese Burger</h3>
+                        <p class="item-price">$3.88</p>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-item="2">-</button>
+                            <span class="quantity" data-item="2">1</span>
+                            <button class="quantity-btn plus-btn" data-item="2">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart Item 3 -->
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="../../assets/images/cheese_burger.png" alt="Cheese Burger">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">Cheese Burger</h3>
+                        <p class="item-price">$3.88</p>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn minus-btn" data-item="3">-</button>
+                            <span class="quantity" data-item="3">1</span>
+                            <button class="quantity-btn plus-btn" data-item="3">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delivery Information -->
+            <div class="delivery-section">
+                <h2 class="section-title">
+                    Delivery
+                    <span class="dropdown-arrow">▼</span>
+                </h2>
+                <div class="delivery-info">
+                    <div class="info-row">
+                        <span class="info-label">Recipient Name :</span>
+                        <span class="info-value">XXXXX XXX XX</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Phone Number :</span>
+                        <span class="info-value">xxx-xxxxxxx</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">City :</span>
+                        <span class="info-value">XXXXX</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Email :</span>
+                        <span class="info-value">xxxxxxxxxxxxxxxxxxxxxxxx@xxxx.xxx</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Address :</span>
+                        <span class="info-value">xxx, xxxxxx xxxxxx,xxxx xxx</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span class="summary-label">Subtotal</span>
+                    <span class="summary-value" id="subtotal">$ 100.00</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Delivery fee</span>
+                    <span class="summary-value">$6.00</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Tax</span>
+                    <span class="summary-value">$24.00</span>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-row total-row">
+                    <span class="summary-label total-label">Total</span>
+                    <span class="summary-value total-value" id="total">$ 130.00</span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="confirm-btn">Confirm</button>
+                <button class="cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const minusBtns = document.querySelectorAll('.minus-btn');
+            const plusBtns = document.querySelectorAll('.plus-btn');
+            const quantities = document.querySelectorAll('.quantity');
+            
+            // Item price
+            const itemPrice = 3.88;
+            const deliveryFee = 6.00;
+            const taxRate = 0.24; // 24% tax rate
+            
+            function updateTotals() {
+                let subtotal = 0;
+                quantities.forEach(qty => {
+                    subtotal += parseInt(qty.textContent) * itemPrice;
+                });
+                
+                const tax = subtotal * taxRate;
+                const total = subtotal + deliveryFee + tax;
+                
+                document.getElementById('subtotal').textContent = `$ ${subtotal.toFixed(2)}`;
+                document.getElementById('total').textContent = `$ ${total.toFixed(2)}`;
+            }
+            
+            // Plus button functionality
+            plusBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-item');
+                    const quantityElement = document.querySelector(`[data-item="${itemId}"].quantity`);
+                    let currentQuantity = parseInt(quantityElement.textContent);
+                    currentQuantity++;
+                    quantityElement.textContent = currentQuantity;
+                    updateTotals();
+                });
+            });
+            
+            // Minus button functionality
+            minusBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-item');
+                    const quantityElement = document.querySelector(`[data-item="${itemId}"].quantity`);
+                    let currentQuantity = parseInt(quantityElement.textContent);
+                    if (currentQuantity > 1) {
+                        currentQuantity--;
+                        quantityElement.textContent = currentQuantity;
+                        updateTotals();
+                    }
+                });
+            });
+            
+            // Delivery section toggle
+            const deliveryTitle = document.querySelector('.section-title');
+            const deliveryInfo = document.querySelector('.delivery-info');
+            const dropdownArrow = document.querySelector('.dropdown-arrow');
+            
+            deliveryTitle.addEventListener('click', function() {
+                deliveryInfo.classList.toggle('collapsed');
+                dropdownArrow.textContent = deliveryInfo.classList.contains('collapsed') ? '▶' : '▼';
+            });
+            
+            // Action buttons
+            document.querySelector('.confirm-btn').addEventListener('click', function() {
+                alert('Order confirmed!');
+            });
+            
+            document.querySelector('.cancel-btn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to cancel this order?')) {
+                    window.history.back();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

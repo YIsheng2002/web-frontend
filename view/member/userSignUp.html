@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUP TULANG ZZ - Register</title>
+    <link rel="stylesheet" href="../../assets/css/userSignUp_style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left side - Registration Form -->
+        <div class="form-section">
+            <header class="header">
+                <div class="logo">
+                    <img src="../../assets/images/logo.png" alt="SUP TULANG ZZ Logo" class="logo-img">
+                    <h1>SUP TULANG ZZ</h1>
+                </div>
+            </header>
+
+            <main class="form-container">
+                <h2>Welcome to SUP TULANG ZZ</h2>
+                <p class="login-link">Already have an account? <a href="userLogin.html" class="link">Log in</a></p>
+
+                <form class="registration-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-input-container">
+                            <input type="password" id="password" name="password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword()">
+                                <span class="hide-icon">👁️</span>
+                                <span class="hide-text">Hide</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="password-requirements">
+                        <div class="requirement-row">
+                            <span class="requirement">• Use 8 or more characters</span>
+                            <span class="requirement">• One Uppercase character</span>
+                            <span class="requirement">• One lowercase character</span>
+                        </div>
+                        <div class="requirement-row">
+                            <span class="requirement">• One special character</span>
+                            <span class="requirement">• One number</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="create-account-btn">Create an account</button>
+                    <p class="login-link-bottom">Already have an account? <a class="link" href="userLogin.html">Log in</a></p>
+                </form>
+            </main>
+        </div>
+
+        <!-- Right side - Background Image -->
+        <div class="image-section">
+            <div class="image-overlay">
+                <div class="brand-text">
+                    <p class="since-text">SINCE 1990'S</p>
+                    <h1 class="brand-name">TULANG</h1>
+                    <p class="tagline">PASIR GUDANG</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.innerHTML = '<span class="hide-icon">👁️‍🗨️</span><span class="hide-text">Show</span>';
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.innerHTML = '<span class="hide-icon">👁️</span><span class="hide-text">Hide</span>';
+            }
+        }
+    </script>
+</body>
+</html>
