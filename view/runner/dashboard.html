@@ -21,17 +21,8 @@
                 👤
             </div>
             <div class="dropdown-menu" id="userDropdown">
-                <a href="#" class="dropdown-item" onclick="showProfile()">
-                    👤 Profile
-                </a>
-                <a href="#" class="dropdown-item" onclick="showSettings()">
-                    ⚙️ Settings
-                </a>
                 <a href="#" class="dropdown-item" onclick="showOrders()">
                     📋 Orders
-                </a>
-                <a href="#" class="dropdown-item" onclick="showReports()">
-                    📊 Reports
                 </a>
                 <hr style="margin: 8px 0; border: none; border-top: 1px solid #eee;">
                 <a href="#" class="dropdown-item danger" onclick="logout()">
@@ -47,7 +38,6 @@
         <div class="nav-tabs">
             <button class="nav-tab active" onclick="showPage('current-orders')">Current Orders</button>
             <button class="nav-tab" onclick="showPage('completed-orders')">Completed Orders</button>
-            <button class="nav-tab" onclick="showPage('analytics')">Analytics</button>
         </div>
 
         <!-- Current Orders Page -->
@@ -58,106 +48,73 @@
                 <div class="orders-header">
                     <div>Order Id</div>
                     <div>Customer</div>
-                    <div>Details</div>
+                    <div>Address</div>
+                    <div>Status</div>
                     <div>Action</div>
                 </div>
                 
                 <div class="order-row">
                     <div class="order-id">Order#21345</div>
-                    <div class="customer-email">michelle.rivera@example.com</div>
-                    <div></div>
+                    <div class="customer-name">Michelle</div>
+                    <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                    <div class="status-tag status-waiting">Waiting</div>
                     <button class="accept-btn" onclick="acceptOrder('21345')">Accept</button>
                 </div>
                 
                 <div class="order-row highlighted">
                     <div class="order-id">Order#21346</div>
-                    <div class="customer-info">
-                        <div class="customer-avatar">M</div>
-                        <div class="customer-details">
-                            <div class="customer-name">Marvin McKinney</div>
-                            <div class="customer-email">debbie.baker@example.com</div>
-                        </div>
-                    </div>
-                    <div class="gender-tag gender-female">Female</div>
-                    <button class="accept-btn" onclick="acceptOrder('21346')">Accept</button>
+                    <div class="customer-name">Marvin McKinney</div>
+                    <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                    <div class="status-tag status-delivering">In Kitchen</div>
+                    <button class="accept-btn" onclick="acceptOrder('21346')">Update Status</button>
                 </div>
                 
                 <div class="order-row">
-                    <div class="order-id">Order#21347</div>
-                    <div class="customer-info">
-                        <div class="customer-avatar">J</div>
-                        <div class="customer-details">
-                            <div class="customer-name">Jane Cooper</div>
-                            <div class="customer-email">kenzi.lawson@example.com</div>
-                        </div>
-                    </div>
-                    <div class="gender-tag gender-female">Female</div>
-                    <button class="accept-btn" onclick="acceptOrder('21347')">Accept</button>
+                    <div class="order-id">Order#21345</div>
+                    <div class="customer-name">Michelle</div>
+                    <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                    <div class="status-tag status-waiting">Waiting</div>
+                    <button class="accept-btn" onclick="acceptOrder('21345')">Accept</button>
                 </div>
                 
                 <div class="order-row highlighted">
-                    <div class="order-id">Order#21348</div>
-                    <div class="customer-info">
-                        <div class="customer-avatar">C</div>
-                        <div class="customer-details">
-                            <div class="customer-name">Cody Fisher</div>
-                            <div class="customer-email">nathan.roberts@example.com</div>
-                        </div>
-                    </div>
-                    <div class="gender-tag gender-female">Female</div>
-                    <button class="accept-btn" onclick="acceptOrder('21348')">Accept</button>
+                    <div class="order-id">Order#21346</div>
+                    <div class="customer-name">Marvin McKinney</div>
+                    <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                    <div class="status-tag status-delivering">In Kitchen</div>
+                    <button class="accept-btn" onclick="acceptOrder('21346')">Update Status</button>
                 </div>
                 
                 <div class="order-row">
-                    <div class="order-id">Order#21349</div>
-                    <div class="customer-info">
-                        <div class="customer-avatar">B</div>
-                        <div class="customer-details">
-                            <div class="customer-name">Bessie Cooper</div>
-                            <div class="customer-email">felicia.reid@example.com</div>
-                        </div>
-                    </div>
-                    <div class="gender-tag gender-male">Male</div>
-                    <button class="accept-btn" onclick="acceptOrder('21349')">Accept</button>
+                    <div class="order-id">Order#21345</div>
+                    <div class="customer-name">Michelle</div>
+                    <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                    <div class="status-tag status-waiting">Waiting</div>
+                    <button class="accept-btn" onclick="acceptOrder('21345')">Accept</button>
                 </div>
                 
                 <div class="order-row highlighted">
-                    <div class="order-id">Order#21350</div>
-                    <div class="customer-info">
-                        <div class="customer-avatar">L</div>
-                        <div class="customer-details">
-                            <div class="customer-name">Leslie Alexander</div>
-                            <div class="customer-email">tim.jennings@example.com</div>
-                        </div>
-                    </div>
-                    <div class="gender-tag gender-male">Male</div>
-                    <button class="accept-btn" onclick="acceptOrder('21350')">Accept</button>
+                    <div class="order-id">Order#21346</div>
+                    <div class="customer-name">Marvin McKinney</div>
+                    <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                    <div class="status-tag status-delivering">In Kitchen</div>
+                    <button class="accept-btn" onclick="acceptOrder('21346')">Update Status</button>
                 </div>
                 
                 <div class="order-row">
-                    <div class="order-id">Order#21351</div>
-                    <div class="customer-info">
-                        <div class="customer-avatar">G</div>
-                        <div class="customer-details">
-                            <div class="customer-name">Guy Hawkins</div>
-                            <div class="customer-email">alma.lawson@example.com</div>
-                        </div>
-                    </div>
-                    <div class="gender-tag gender-male">Male</div>
-                    <button class="accept-btn" onclick="acceptOrder('21351')">Accept</button>
+                    <div class="order-id">Order#21345</div>
+                    <div class="customer-name">Michelle</div>
+                    <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                    <div class="status-tag status-waiting">Waiting</div>
+                    <button class="accept-btn" onclick="acceptOrder('21345')">Accept</button>
                 </div>
                 
                 <div class="order-row highlighted">
-                    <div class="order-id">Order#21352</div>
-                    <div class="customer-info">
-                        <div class="customer-avatar">T</div>
-                        <div class="customer-details">
-                            <div class="customer-name">Theresa Webb</div>
-                            <div class="customer-email">debra.holt@example.com</div>
-                        </div>
-                    </div>
-                    <div class="gender-tag gender-female">Female</div>
-                    <button class="accept-btn" onclick="acceptOrder('21352')">Accept</button>
+                    <div class="order-id">Order#21346</div>
+                    <div class="customer-name">Marvin McKinney</div>
+                    <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                    <div class="status-tag status-delivering">In Kitchen</div>
+                    <button class="accept-btn" onclick="acceptOrder('21346')">Update Status</button>
                 </div>
             </div>
         </div>
@@ -175,188 +132,22 @@
                 </div>
                 
                 <div class="order-row">
-                    <div class="order-id">Order#21300</div>
-                    <div class="customer-info">
-                        <div class="customer-avatar">J</div>
-                        <div class="customer-details">
-                            <div class="customer-name">John Doe</div>
-                            <div class="customer-email">john.doe@example.com</div>
-                        </div>
-                    </div>
-                    <div>Today, 2:30 PM</div>
-                    <div class="gender-tag gender-male" style="background: #e8f5e8; color: #2e7d32;">Completed</div>
+                    <div class="order-id">Order#21345</div>
+                    <div class="customer-name">Michelle</div>
+                    <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                    <div class="status-tag status-waiting" style="background: #96ff96; color: #214b17;">Completed</div>
                 </div>
                 
                 <div class="order-row highlighted">
-                    <div class="order-id">Order#21301</div>
-                    <div class="customer-info">
-                        <div class="customer-avatar">S</div>
-                        <div class="customer-details">
-                            <div class="customer-name">Sarah Wilson</div>
-                            <div class="customer-email">sarah.wilson@example.com</div>
-                        </div>
-                    </div>
-                    <div>Today, 1:15 PM</div>
-                    <div class="gender-tag gender-female" style="background: #e8f5e8; color: #2e7d32;">Completed</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Analytics Page -->
-        <div id="analytics" class="page">
-            <h2 class="page-title">Analytics Dashboard</h2>
-            
-            <div class="order-meta">
-                <div class="meta-item">
-                    <div class="meta-label">Total Orders Today</div>
-                    <div class="meta-value">47</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Pending Orders</div>
-                    <div class="meta-value">12</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Completed Orders</div>
-                    <div class="meta-value">35</div>
-                </div>
-                <div class="meta-item">
-                    <div class="meta-label">Revenue Today</div>
-                    <div class="meta-value">RM 1,250</div>
-                </div>
-            </div>
-            
-            <div class="orders-container">
-                <div style="padding: 40px; text-align: center; color: #666;">
-                    <h3>📊 Analytics Coming Soon</h3>
-                    <p>Detailed analytics and reports will be available here.</p>
+                    <div class="order-id">Order#21346</div>
+                    <div class="customer-name">Marvin McKinney</div>
+                    <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                    <div class="status-tag status-waiting" style="background: #96ff96; color: #214b17;">Completed</div>
                 </div>
             </div>
         </div>
     </main>
 
-    <script>
-        // Dropdown functionality
-        function toggleDropdown() {
-            const dropdown = document.getElementById('userDropdown');
-            dropdown.classList.toggle('show');
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const userMenu = document.querySelector('.user-menu');
-            const dropdown = document.getElementById('userDropdown');
-            
-            if (!userMenu.contains(event.target)) {
-                dropdown.classList.remove('show');
-            }
-        });
-
-        // Page navigation
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Remove active class from all tabs
-            document.querySelectorAll('.nav-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Add active class to clicked tab
-            event.target.classList.add('active');
-        }
-
-        // User menu actions
-        function showProfile() {
-            alert('Profile page - Coming soon!');
-            toggleDropdown();
-        }
-
-        function showSettings() {
-            alert('Settings page - Coming soon!');
-            toggleDropdown();
-        }
-
-        function showOrders() {
-            showPage('current-orders');
-            document.querySelector('[onclick="showPage(\'current-orders\')"]').classList.add('active');
-            toggleDropdown();
-        }
-
-        function showReports() {
-            showPage('analytics');
-            document.querySelector('[onclick="showPage(\'analytics\')"]').classList.add('active');
-            toggleDropdown();
-        }
-
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                // Add logout logic here
-                alert('Logged out successfully!');
-                // Redirect to login page
-                // window.location.href = '/login.html';
-            }
-            toggleDropdown();
-        }
-
-        // Order management
-        function acceptOrder(orderId) {
-            if (confirm(`Accept order ${orderId}?`)) {
-                // Add API call here to accept the order
-                alert(`Order ${orderId} accepted successfully!`);
-                
-                // Remove the order from current orders (simulate)
-                const orderRow = event.target.closest('.order-row');
-                orderRow.style.opacity = '0.5';
-                orderRow.style.transform = 'translateX(20px)';
-                
-                setTimeout(() => {
-                    orderRow.remove();
-                }, 300);
-            }
-        }
-
-        // Auto-refresh orders every 30 seconds
-        setInterval(() => {
-            // Add logic to refresh orders from server
-            console.log('Refreshing orders...');
-        }, 30000);
-
-        // Real-time order notifications (simulate)
-        function simulateNewOrder() {
-            // Create notification
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #e74c3c;
-                color: white;
-                padding: 15px 20px;
-                border-radius: 8px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                z-index: 10000;
-                animation: slideIn 0.3s ease-out;
-            `;
-            notification.innerHTML = '🔔 New order received!';
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
-        }
-
-        // Simulate new orders every 2 minutes for demo
-        setInterval(simulateNewOrder, 120000);
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('SUP TULANG ZZ Order Management System loaded');
-        });
-    </script>
+    <script src="./assets/js/dashboard.js"></script>
 </body>
 </html>
