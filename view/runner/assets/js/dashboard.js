@@ -4,14 +4,14 @@ const dummyCurrentOrders = [
     id: "21345",
     customer: "Michelle",
     address: "100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal",
-    status: "waiting",
+    status: "ready",
     time: new Date(Date.now() - 1000 * 60 * 15) // 15 minutes ago
   },
   {
     id: "21346",
     customer: "Marvin McKinney",
     address: "25, Jalan Melaka Raya, Taman Indah, 75000 Melaka",
-    status: "in-kitchen",
+    status: "ready",
     time: new Date(Date.now() - 1000 * 60 * 30) // 30 minutes ago
   },
   {
@@ -25,7 +25,7 @@ const dummyCurrentOrders = [
     id: "21348",
     customer: "John Doe",
     address: "12, Jalan Hang Tuah, Taman Merdeka, 75300 Melaka",
-    status: "waiting",
+    status: "ready",
     time: new Date(Date.now() - 1000 * 60 * 45) // 45 minutes ago
   },
   {
@@ -39,7 +39,7 @@ const dummyCurrentOrders = [
     id: "21350",
     customer: "Ahmad Rahman",
     address: "33, Jalan Mawar, Taman Damai, 75200 Melaka",
-    status: "waiting",
+    status: "delivering",
     time: new Date(Date.now() - 1000 * 60 * 20) // 20 minutes ago
   }
 ];
@@ -85,8 +85,6 @@ const dummyCompletedOrders = [
 // Function to get status display info
 function getStatusInfo(status) {
   const statusMap = {
-    'waiting': { class: 'status-waiting', text: 'Waiting', button: 'Accept' },
-    'in-kitchen': { class: 'status-delivering', text: 'In Kitchen', button: 'Update Status' },
     'ready': { class: 'status-ready', text: 'Ready', button: 'Mark Delivering' },
     'delivering': { class: 'status-delivering', text: 'Delivering', button: 'Mark Completed' },
     'completed': { class: 'status-completed', text: 'Completed', button: null }
@@ -120,8 +118,6 @@ function sortCurrentOrders(orders) {
   const statusPriority = {
     'ready': 1,
     'delivering': 2,
-    'in-kitchen': 3,
-    'waiting': 4
   };
   
   return orders.sort((a, b) => {
@@ -149,7 +145,7 @@ function renderCurrentOrders() {
   
   sortedOrders.forEach((order, index) => {
     const statusInfo = getStatusInfo(order.status);
-    const isHighlighted = order.status !== 'waiting';
+    const isHighlighted = order.status !== 'delivering';
     
     const orderRow = document.createElement('div');
     orderRow.className = `order-row ${isHighlighted ? 'highlighted' : ''}`;
@@ -199,8 +195,6 @@ function updateOrderStatus(orderId) {
   if (!order) return;
   
   const statusFlow = {
-    'waiting': 'in-kitchen',
-    'in-kitchen': 'ready',
     'ready': 'delivering',
     'delivering': 'completed'
   };
@@ -292,28 +286,10 @@ function showPage(pageId) {
 }
 
 // User menu actions
-function showProfile() {
-  alert("Profile page - Coming soon!");
-  toggleDropdown();
-}
-
-function showSettings() {
-  alert("Settings page - Coming soon!");
-  toggleDropdown();
-}
-
 function showOrders() {
   showPage("current-orders");
   document
     .querySelector("[onclick=\"showPage('current-orders')\"]")
-    .classList.add("active");
-  toggleDropdown();
-}
-
-function showReports() {
-  showPage("analytics");
-  document
-    .querySelector("[onclick=\"showPage('analytics')\"]")
     .classList.add("active");
   toggleDropdown();
 }
@@ -326,32 +302,6 @@ function logout() {
     // window.location.href = '/login.html';
   }
   toggleDropdown();
-}
-
-// Function to simulate adding new orders
-function addNewOrder() {
-  const newOrderId = String(Math.max(...dummyCurrentOrders.map(o => parseInt(o.id))) + 1);
-  const customers = ["Alex Johnson", "Sophie Lee", "Michael Brown", "Anna Davis", "Chris Wilson"];
-  const addresses = [
-    "77, Jalan Bukit Baru, Taman Harmoni, 75150 Melaka",
-    "44, Jalan Cheng Ho, Bandar Hilir, 75000 Melaka",
-    "66, Jalan Laksamana, Taman Seri, 75300 Melaka",
-    "23, Jalan Bendahara, Kampung Jawa, 75200 Melaka"
-  ];
-  
-  const newOrder = {
-    id: newOrderId,
-    customer: customers[Math.floor(Math.random() * customers.length)],
-    address: addresses[Math.floor(Math.random() * addresses.length)],
-    status: "waiting",
-    time: new Date()
-  };
-  
-  dummyCurrentOrders.push(newOrder);
-  renderCurrentOrders();
-  
-  // Show notification
-  simulateNewOrder();
 }
 
 // Auto-refresh orders every 30 seconds
@@ -383,14 +333,6 @@ function simulateNewOrder() {
     notification.remove();
   }, 3000);
 }
-
-// Simulate new orders every 2 minutes for demo
-setInterval(() => {
-  // Randomly add new orders (30% chance every 2 minutes)
-  if (Math.random() < 0.3) {
-    addNewOrder();
-  }
-}, 120000);
 
 // Initialize
 document.addEventListener("DOMContentLoaded", function () {

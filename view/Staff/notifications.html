@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUP TULANG ZZ - Delivery Notifications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/notifications.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <img src="../../assets/images/logo.png" alt="logo" class="logo">
+            <h1 class="brand-name">SUP TULANG ZZ</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="notifications-container">
+            <div class="notifications-header">
+                <div class="notifications-title">
+                    <i class="fas fa-bell"></i>
+                    Delivery Notifications
+                </div>
+                <button class="mark-all-read" onclick="markAllAsRead()">
+                    <i class="fas fa-check-double"></i> Mark All Read
+                </button>
+            </div>
+
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterNotifications('all')">All</button>
+                <button class="filter-tab" onclick="filterNotifications('unread')">Unread</button>
+                <button class="filter-tab" onclick="filterNotifications('preparing')">Preparing</button>
+                <button class="filter-tab" onclick="filterNotifications('ready')">Ready</button>
+                <button class="filter-tab" onclick="filterNotifications('delivered')">Delivered</button>
+            </div>
+
+            <div class="notifications-list" id="notifications-list">
+                <!-- Notifications will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="./assets/js/notifications.js"></script>
+</body>
+
+</html>
