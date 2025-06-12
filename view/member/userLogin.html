@@ -35,12 +35,12 @@
                 <h2 class="signin-title">Sign in</h2>
                 
                 <div class="form-group">
-                    <label class="form-label" for="email">email address</label>
+                    <label class="form-label" for="email">Email Address</label>
                     <input type="email" id="email" class="form-input" required>
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label" for="password">Your password</label>
+                    <label class="form-label" for="password">Your Password</label>
                     <input type="password" id="password" class="form-input" required>
                     <div class="forgot-password">
                         <a href="#">Forget your password</a>
@@ -55,5 +55,39 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Logo click event to redirect to landing page
+            document.querySelector('.logo').addEventListener('click', function() {
+                window.location.href = 'landing.html';
+            });
+
+            // Handle form submission
+            document.querySelector('.signin-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Get the email and password values
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+
+                // Example credentials (for demonstration purposes)
+                const validEmail = 'user@gmail.com';
+                const validPassword = 'abc123';
+
+                // Validate credentials
+                if (email === validEmail && password === validPassword) {
+                    // Store user session (optional)
+                    // sessionStorage.setItem('userSession', email);
+
+                    // Redirect to the dashboard or home page
+                    window.location.href = 'menu.html'; 
+                } else {
+                    // Show an error message (you can customize this)
+                    alert('Invalid email or password. Please try again.');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

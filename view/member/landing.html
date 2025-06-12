@@ -3,94 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sup Tulang ZZ - Mi Rebus Tulang Istimewa</title>
+    <title>SUP TULANG ZZ - Mi Rebus Tulang Istimewa</title>
     <link rel="stylesheet" href="assets/css/landing_style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                    <img src="../../assets/images/logo.png" alt="SUP TULANG ZZ Logo" class="logo-img">
-                    <h1>SUP TULANG ZZ</h1>
+                <img src="../../assets/images/logo.png" alt="SUP TULANG ZZ Logo" class="logo-img">
+                <span class="logo-text">SUP TULANG ZZ</span>
             </div>
-            <div class="header-actions">
-                <button class="search-btn">
-                    <span class="search-icon">🔍</span>
-                    Search Food
-                </button>
-                <button class="login-btn" onclick="window.location.href='userLogin.html'">
-                    <span class="user-icon">👤</span>
-                    Login
-                </button>
+            <div class="header-right">
+                <div class="nav-actions">
+                    <!-- <button class="search-btn">
+                        <i class="fas fa-search"></i> Search Food
+                    </button> -->
+                    <button class="login-btn">
+                        <i class="fas fa-user"></i> Login
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-overlay">
-            <div class="hero-content">
-                <h2 class="hero-title">
-                    MI REBUS<br>
-                    TULANG<br>
-                    ISTIMEWA
-                </h2>
-                <p class="hero-subtitle">SINCE 1990'S</p>
-                <p class="hero-description">Resipi 27 tahun Zaini</p>
-                <button class="find-food-btn">
-                    <span class="search-icon">🔍</span>
-                    Find Food
-                </button>
-            </div>
-            <div class="hero-brand">
-                <div class="brand-text">SUP TULANG ZZ</div>
-                <div class="location-text">PASIR GUDANG</div>
-            </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                MI REBUS<br>
+                TULANG<br>
+                ISTIMEWA
+            </h1>
+            <p class="hero-subtitle">SINCE 1990'S</p>
+            <p class="hero-description">Resipi 27 tahun Zaini</p>
+            <!-- <button class="find-food-btn">
+                <i class="fas fa-search"></i> Find Food
+            </button> -->
         </div>
+        <div class="hero-text-bg">SUP TULANG ZZ</div>
+        <div class="hero-bottom-text">PASIR GUDANG</div>
     </section>
 
     <!-- Signature Section -->
     <section class="signature-section">
         <div class="container">
             <h2 class="section-title">Signature</h2>
-            
-            <div class="signature-carousel">
-                <button class="carousel-btn prev-btn">‹</button>
-                
-                <div class="signature-items">
-                    <div class="signature-item">
-                        <div class="item-image">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect fill='%23D2691E' width='300' height='200'/><circle fill='%238B4513' cx='150' cy='100' r='60'/><text x='150' y='105' text-anchor='middle' fill='white' font-size='16'>Burger</text></svg>" alt="Cheese Burger">
-                        </div>
-                        <h3 class="item-name">Cheese Burger</h3>
-                        <p class="item-location">📍 Burger Arena</p>
-                        <p class="item-price">$3.88</p>
+            <div class="signature-slider">
+                <button class="slider-btn prev-btn" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="signature-cards" id="signatureCards">
+                    <div class="signature-card">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300&h=200&fit=crop" alt="Cheese Burger">
+                        <h3>Cheese Burger</h3>
+                        <p class="restaurant"><i class="fas fa-map-marker-alt"></i> Burger Arena</p>
+                        <p class="price">$3.88</p>
                         <button class="order-btn">Order Now</button>
                     </div>
-
-                    <div class="signature-item">
-                        <div class="item-image">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect fill='%23DAA520' width='300' height='200'/><circle fill='%23B8860B' cx='150' cy='100' r='50'/><text x='150' y='105' text-anchor='middle' fill='white' font-size='16'>Cake</text></svg>" alt="Toffe's Cake">
-                        </div>
-                        <h3 class="item-name">Toffe's Cake</h3>
-                        <p class="item-location">📍 Top Sticks</p>
-                        <p class="item-price">$4.00</p>
+                    <div class="signature-card">
+                        <img src="https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=300&h=200&fit=crop" alt="Toffe's Cake">
+                        <h3>Toffe's Cake</h3>
+                        <p class="restaurant"><i class="fas fa-map-marker-alt"></i> Top Sticks</p>
+                        <p class="price">$4.00</p>
                         <button class="order-btn">Order Now</button>
                     </div>
-
-                    <div class="signature-item">
-                        <div class="item-image">
-                            <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect fill='%23F4A460' width='300' height='200'/><circle fill='%23CD853F' cx='150' cy='100' r='55'/><text x='150' y='105' text-anchor='middle' fill='white' font-size='16'>Pancake</text></svg>" alt="Dancake">
-                        </div>
-                        <h3 class="item-name">Dancake</h3>
-                        <p class="item-location">📍 Cake World</p>
-                        <p class="item-price">$1.99</p>
+                    <div class="signature-card">
+                        <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?w=300&h=200&fit=crop" alt="Dancake">
+                        <h3>Dancake</h3>
+                        <p class="restaurant"><i class="fas fa-map-marker-alt"></i> Cake World</p>
+                        <p class="price">$1.99</p>
+                        <button class="order-btn">Order Now</button>
+                    </div>
+                    <div class="signature-card">
+                        <img src="https://www.pngarts.com/files/3/Pizza-PNG-Photo.png" alt="Pizza Special">
+                        <h3>Pizza Special</h3>
+                        <p class="restaurant"><i class="fas fa-map-marker-alt"></i> Pizza Corner</p>
+                        <p class="price">$5.99</p>
                         <button class="order-btn">Order Now</button>
                     </div>
                 </div>
-                
-                <button class="carousel-btn next-btn">›</button>
+                <button class="slider-btn next-btn" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -100,42 +97,46 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Search by Food</h2>
-                <div class="section-nav">
-                    <a href="#" class="view-all">View All ›</a>
-                    <div class="nav-arrows">
-                        <button class="nav-btn prev">‹</button>
-                        <button class="nav-btn next">›</button>
-                    </div>
+                <div class="section-controls">
+                    <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+                    <button class="food-slider-btn prev-btn" id="foodPrevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="food-slider-btn next-btn" id="foodNextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
-
-            <div class="food-categories">
-                <div class="category-item">
+            <div class="food-categories" id="foodCategories">
+                <div class="food-category">
                     <div class="category-image">
-                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><circle fill='%23FF6347' cx='100' cy='100' r='90'/><circle fill='%23FFD700' cx='100' cy='100' r='60'/><text x='100' y='105' text-anchor='middle' fill='%238B4513' font-size='14'>Pizza</text></svg>" alt="Pizza">
+                        <img src="https://www.pngarts.com/files/3/Pizza-PNG-Photo.png" alt="Pizza">
                     </div>
-                    <h3 class="category-name">Pizza</h3>
+                    <h3>Pizza</h3>
                 </div>
-
-                <div class="category-item">
+                <div class="food-category">
                     <div class="category-image">
-                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><circle fill='%23D2691E' cx='100' cy='100' r='90'/><circle fill='%238B4513' cx='100' cy='100' r='60'/><text x='100' y='105' text-anchor='middle' fill='white' font-size='14'>Burger</text></svg>" alt="Burger">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=150&h=150&fit=crop" alt="Burger">
                     </div>
-                    <h3 class="category-name">Burger</h3>
+                    <h3>Burger</h3>
                 </div>
-
-                <div class="category-item">
+                <div class="food-category">
                     <div class="category-image">
-                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><circle fill='%23F5DEB3' cx='100' cy='100' r='90'/><circle fill='%23DEB887' cx='100' cy='100' r='60'/><text x='100' y='105' text-anchor='middle' fill='%238B4513' font-size='14'>Noodles</text></svg>" alt="Noodles">
+                        <img src="https://images.unsplash.com/photo-1555126634-323283e090fa?w=150&h=150&fit=crop" alt="Noodles">
                     </div>
-                    <h3 class="category-name">Noodles</h3>
+                    <h3>Noodles</h3>
                 </div>
-
-                <div class="category-item">
+                <div class="food-category">
                     <div class="category-image">
-                        <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><circle fill='%23A0522D' cx='100' cy='100' r='90'/><circle fill='%23654321' cx='100' cy='100' r='60'/><text x='100' y='105' text-anchor='middle' fill='white' font-size='14'>Steak</text></svg>" alt="Steak">
+                        <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=150&h=150&fit=crop" alt="Steak">
                     </div>
-                    <h3 class="category-name">Steak</h3>
+                    <h3>Steak</h3>
+                </div>
+                <div class="food-category">
+                    <div class="category-image">
+                        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=150&h=150&fit=crop" alt="Soup">
+                    </div>
+                    <h3>Soup</h3>
                 </div>
             </div>
         </div>
@@ -143,37 +144,135 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <p class="footer-left">All rights Reserved © Your Company, 2021</p>
-            <p class="footer-right">Made with 🤍 by <strong>Themewagon</strong></p>
+        <div class="container">
+            <div class="footer-content">
+                <p>All rights Reserved © Your Company, 2021</p>
+                <p>Made with <i class="fas fa-heart"></i> by <span class="theme-credit">Themewagon</span></p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Simple carousel functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const prevBtn = document.querySelector('.signature-carousel .prev-btn');
-            const nextBtn = document.querySelector('.signature-carousel .next-btn');
-            const itemsContainer = document.querySelector('.signature-items');
-            
-            let currentIndex = 0;
-            const itemWidth = 320; // Approximate width including margin
-            
-            nextBtn.addEventListener('click', function() {
-                const maxIndex = itemsContainer.children.length - 3;
-                if (currentIndex < maxIndex) {
-                    currentIndex++;
-                    itemsContainer.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
-                }
-            });
-            
-            prevBtn.addEventListener('click', function() {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    itemsContainer.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        // Signature slider functionality
+        let currentSignatureIndex = 0;
+        const signatureCards = document.getElementById('signatureCards');
+        const totalSignatureCards = document.querySelectorAll('.signature-card').length;
+        const cardsVisible = 3;
+
+        function updateSignatureSlider() {
+            const cardWidth = 100 / cardsVisible;
+            const translateX = -currentSignatureIndex * cardWidth;
+            signatureCards.style.transform = `translateX(${translateX}%)`;
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentSignatureIndex < totalSignatureCards - cardsVisible) {
+                currentSignatureIndex++;
+                updateSignatureSlider();
+            }
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentSignatureIndex > 0) {
+                currentSignatureIndex--;
+                updateSignatureSlider();
+            }
+        });
+
+        // Food categories slider functionality
+        let currentFoodIndex = 0;
+        const foodCategories = document.getElementById('foodCategories');
+        const totalFoodCategories = document.querySelectorAll('.food-category').length;
+        const foodVisible = 4;
+
+        function updateFoodSlider() {
+            const categoryWidth = 100 / foodVisible;
+            const translateX = -currentFoodIndex * categoryWidth;
+            foodCategories.style.transform = `translateX(${translateX}%)`;
+        }
+
+        document.getElementById('foodNextBtn').addEventListener('click', () => {
+            if (currentFoodIndex < totalFoodCategories - foodVisible) {
+                currentFoodIndex++;
+                updateFoodSlider();
+            }
+        });
+
+        document.getElementById('foodPrevBtn').addEventListener('click', () => {
+            if (currentFoodIndex > 0) {
+                currentFoodIndex--;
+                updateFoodSlider();
+            }
+        });
+
+        // Order button functionality
+        document.querySelectorAll('.order-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Prompt the user to log in
+                const userConfirmed = confirm('You need to log in to search for food. Would you like to log in now?');
+                // If the user confirms, redirect to the login page
+                if (userConfirmed) {
+                    window.location.href = 'userLogin.html'; 
                 }
             });
         });
+
+        // Food category click functionality
+        document.querySelectorAll('.food-category').forEach(category => {
+            category.addEventListener('click', function() {
+                // Prompt the user to log in
+                const userConfirmed = confirm('You need to log in to search for food. Would you like to log in now?');
+                // If the user confirms, redirect to the login page
+                if (userConfirmed) {
+                    window.location.href = 'userLogin.html';
+                }
+            });
+        });
+
+        // Search and login button functionality
+        // document.querySelector('.search-btn').addEventListener('click', () => {
+        //     // Prompt the user to log in
+        //     const userConfirmed = confirm('You need to log in to search for food. Would you like to log in now?');
+        //     // If the user confirms, redirect to the login page
+        //     if (userConfirmed) {
+        //         window.location.href = 'userLogin.html'; 
+        //     }
+        // });
+
+        document.querySelector('.login-btn').addEventListener('click', () => {
+            window.location.href = 'userLogin.html';
+        });
+
+        // document.querySelector('.find-food-btn').addEventListener('click', () => {
+        //     // Prompt the user to log in
+        //     const userConfirmed = confirm('You need to log in to search for food. Would you like to log in now?');
+        //     // If the user confirms, redirect to the login page
+        //     if (userConfirmed) {
+        //         window.location.href = 'userLogin.html';
+        //     }
+        // });
+
+        // Auto-slide functionality for signature cards
+        setInterval(() => {
+            if (currentSignatureIndex < totalSignatureCards - cardsVisible) {
+                currentSignatureIndex++;
+            } else {
+                currentSignatureIndex = 0;
+            }
+            updateSignatureSlider();
+        }, 5000);
+
+        // Responsive behavior
+        function handleResize() {
+            if (window.innerWidth <= 768) {
+                // Mobile view adjustments
+                updateSignatureSlider();
+                updateFoodSlider();
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        handleResize(); // Initial call
     </script>
 </body>
 </html>

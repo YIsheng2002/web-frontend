@@ -50,6 +50,10 @@ body {
     letter-spacing: 1px;
 }
 
+.logo:hover {
+    background-color: rgba(255, 255, 255, 0.1);   
+}
+
 .form-container {
     flex: 1;
     padding: 3rem 2rem;
@@ -191,58 +195,66 @@ body {
 }
 
 /* Right side - Image Section */
-.image-section {
+
+.order-section {
     flex: 1;
-    background-image: url('tulang-background.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), 
+                    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect fill="%23654321" width="800" height="600"/><circle fill="%238B4513" cx="200" cy="150" r="80" opacity="0.3"/><circle fill="%23A0522D" cx="600" cy="300" r="120" opacity="0.2"/><circle fill="%23CD853F" cx="400" cy="450" r="60" opacity="0.4"/></svg>');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
     position: relative;
-    min-width: 50%;
-}
-
-.image-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.7) 0%,
-        rgba(0, 0, 0, 0.5) 50%,
-        rgba(0, 0, 0, 0.3) 100%
-    );
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-}
-
-.brand-text {
-    text-align: center;
+    padding: 60px;
     color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.since-text {
-    font-size: 1rem;
-    letter-spacing: 2px;
-    margin-bottom: 1rem;
-    opacity: 0.9;
+.order-content {
+    max-width: 500px;
 }
 
-.brand-name {
-    font-size: 4rem;
+.order-badge {
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border-radius: 50%;
+    margin-bottom: 40px;
+}
+
+.order-title {
+    font-size: 48px;
     font-weight: bold;
-    letter-spacing: 8px;
-    margin-bottom: 0.5rem;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+    margin-bottom: 30px;
+    line-height: 1.2;
 }
 
-.tagline {
-    font-size: 1.2rem;
-    letter-spacing: 3px;
-    opacity: 0.8;
+.order-description {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    opacity: 0.95;
+}
+
+.tulang-text {
+    position: absolute;
+    bottom: 80px;
+    left: 60px;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.1);
+    letter-spacing: 15px;
+    z-index: 1;
+}
+
+.pasir-gudang {
+    position: absolute;
+    bottom: 40px;
+    left: 140px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 8px;
+    font-weight: 300;
 }
 
 /* Responsive Design */

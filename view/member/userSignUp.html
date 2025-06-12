@@ -36,10 +36,6 @@
                         <label for="password">Password</label>
                         <div class="password-input-container">
                             <input type="password" id="password" name="password" required>
-                            <button type="button" class="toggle-password" onclick="togglePassword()">
-                                <span class="hide-icon">👁️</span>
-                                <span class="hide-text">Hide</span>
-                            </button>
                         </div>
                     </div>
 
@@ -62,30 +58,72 @@
         </div>
 
         <!-- Right side - Background Image -->
-        <div class="image-section">
-            <div class="image-overlay">
-                <div class="brand-text">
-                    <p class="since-text">SINCE 1990'S</p>
-                    <h1 class="brand-name">TULANG</h1>
-                    <p class="tagline">PASIR GUDANG</p>
-                </div>
+        <div class="order-section">
+            <div class="order-content">
+                <div class="order-badge"></div>
+                <h1 class="order-title">Order Now</h1>
+                <p class="order-description">
+                    For over 51 years, our secret recipe has delivered rich, authentic flavors—made fresh daily with premium goat meat from trusted local suppliers. Taste the tradition in every bowl!
+                </p>
             </div>
+            
+            <div class="tulang-text">TULANG</div>
+            <div class="pasir-gudang">PASIR GUDANG</div>
         </div>
     </div>
 
     <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const toggleButton = document.querySelector('.toggle-password');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleButton.innerHTML = '<span class="hide-icon">👁️‍🗨️</span><span class="hide-text">Show</span>';
-            } else {
-                passwordInput.type = 'password';
-                toggleButton.innerHTML = '<span class="hide-icon">👁️</span><span class="hide-text">Hide</span>';
+        document.addEventListener('DOMContentLoaded', function() {
+            // Logo click event to redirect to landing page
+            document.querySelector('.logo').addEventListener('click', function() {
+                window.location.href = 'landing.html';
+            });
+
+            // Handle form submission
+            document.querySelector('.registration-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Get the input values
+                const email = document.getElementById('email').value;
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                // Validate input data
+                if (validateEmail(email) && validatePassword(password)) {
+                    // Store user data
+                    const userData = {
+                        email: email,
+                        username: username,
+                        password: password
+                    };
+
+                    // Redirect to the login page
+                    alert('Registration successful! You can now log in.');
+                    window.location.href = 'userLogin.html';
+                } else {
+                    alert('Please ensure your email and password meet the requirements.');
+                }
+            });
+
+            // Email validation function
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
+                return re.test(String(email).toLowerCase());
             }
-        }
+
+            // Password validation function
+            function validatePassword(password) {
+                // Check for minimum length, uppercase, lowercase, number, and special character
+                const minLength = password.length >= 8;
+                const hasUppercase = /[A-Z]/.test(password);
+                const hasLowercase = /[a-z]/.test(password);
+                const hasNumber = /[0-9]/.test(password);
+                const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+                return minLength && hasUppercase && hasLowercase && hasNumber && hasSpecialChar;
+            }
+        });
+
+
     </script>
 </body>
 </html>

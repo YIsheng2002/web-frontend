@@ -7,160 +7,689 @@
     <link rel="stylesheet" href="assets/css/menu_style.css">
 </head>
 <body>
-    <!-- Header -->
+    <!-- Header section for the SUP TULANG ZZ menu page -->
     <header class="header">
         <div class="header-content">
             <div class="logo">
+                <!-- Logo image for the restaurant -->
                 <img src="../../assets/images/logo.png" alt="SUP TULANG ZZ Logo" class="logo-img">
                 <span class="logo-text">SUP TULANG ZZ</span>
             </div>
-            <div class="cart">
-                <div class="cart-icon">
-                    🛒
-                    <span class="cart-count">1</span>
+            <div class="header-right">
+                <!-- Shopping cart icon and count -->
+                <div class="cart">
+                    <div class="cart-icon">
+                        🛒
+                        <span class="cart-count">0</span> <!-- Initialize cart count to 0 -->
+                    </div>
+                </div>
+                <!-- Button to check order status -->
+                <div class="order-status">
+                    <button class="order-status-btn">Check Order Status</button>
+                </div>
+                <!-- Logout button -->
+                <div class="logout">
+                    <button class="logout-btn">Logout</button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Navigation Menu -->
-    <nav class="nav-menu">
-        <button class="nav-arrow nav-arrow-left">‹</button>
-        <div class="nav-items">
-            <a href="#" class="nav-item">SIGNATURE</a>
-            <a href="#" class="nav-item">BREAKFAST</a>
-            <a href="#" class="nav-item">ROTI CANAI</a>
-            <a href="#" class="nav-item">LUNCH SET</a>
-            <a href="#" class="nav-item">FISH</a>
-            <a href="#" class="nav-item">ALA-CARTE</a>
-            <a href="#" class="nav-item">WESTERN</a>
-            <a href="#" class="nav-item">GORENG</a>
+    <!-- Order Status Modal: Hidden by default, shown when "Check Order Status" is clicked -->
+    <div class="modal" id="orderStatusModal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span> <!-- Close button for the modal -->
+            <h2>Check Order Status</h2>
+            <form id="orderStatusForm">
+                <div class="form-group">
+                    <label for="orderNumber">Order Number</label>
+                    <input type="text" id="orderNumber" name="orderNumber" required>
+                </div>
+                <button type="submit" class="check-status-btn">Check Status</button>
+            </form>
+            <div id="orderStatusMessage" class="order-status-message"></div>
         </div>
-        <button class="nav-arrow nav-arrow-right">›</button>
+    </div>
+
+    <!-- Navigation Menu for different food categories -->
+    <nav class="nav-menu">
+        <button class="nav-arrow nav-arrow-left">‹</button> <!-- Left scroll arrow -->
+        <div class="nav-items">
+            <!-- Navigation links for different product sections, with data-target for JavaScript toggling -->
+            <a href="#" class="nav-item active" data-target="signature">SIGNATURE</a>
+            <a href="#" class="nav-item" data-target="breakfast">BREAKFAST</a>
+            <a href="#" class="nav-item" data-target="roti_canai">ROTI CANAI</a>
+            <a href="#" class="nav-item" data-target="lunch_set">LUNCH SET</a>
+            <a href="#" class="nav-item" data-target="fish">FISH</a>
+            <a href="#" class="nav-item" data-target="ala_carte">ALA-CARTE</a>
+            <a href="#" class="nav-item" data-target="western">WESTERN</a>
+            <a href="#" class="nav-item" data-target="goreng">GORENG</a>
+        </div>
+        <button class="nav-arrow nav-arrow-right">›</button> <!-- Right scroll arrow -->
     </nav>
 
-    <!-- Main Content -->
+    <!-- Main Content area where product sections are displayed -->
     <main class="main-content">
-        <h1 class="page-title">Signature</h1>
-        
-        <!-- Product Grid -->
-        <div class="product-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/images/cheese_burger.png" alt="Cheese Burger">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Cheese Burger</h3>
-                    <p class="product-price">$3.88</p>
-                    <button class="add-to-cart-btn">Add To Cart</button>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/images/cheese_burger.png" alt="Cheese Burger">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Cheese Burger</h3>
-                    <p class="product-price">$3.88</p>
-                    <button class="add-to-cart-btn">Add To Cart</button>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/images/cheese_burger.png" alt="Cheese Burger">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Cheese Burger</h3>
-                    <p class="product-price">$3.88</p>
-                    <button class="add-to-cart-btn">Add To Cart</button>
-                </div>
-            </div>
-
-            <!-- Product 4 (with quantity selector) -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/images/cheese_burger.png" alt="Cheese Burger">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Cheese Burger</h3>
-                    <p class="product-price">$3.88</p>
-                    <div class="quantity-selector">
-                        <button class="quantity-btn quantity-minus">-</button>
-                        <span class="quantity-display">1</span>
-                        <button class="quantity-btn quantity-plus">+</button>
+        <!-- Signature Products Section (visible by default) -->
+        <div class="product-section" id="signature">
+            <h1 class="page-title">Signature</h1>
+            <div class="product-grid">
+                <!-- Product 1: Cheese Burger -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=872&q=80" alt="Cheese Burger">
                     </div>
-                    <button class="confirm-btn">Confirm</button>
+                    <div class="product-info">
+                        <h3 class="product-name">Cheese Burger</h3>
+                        <p class="product-price">$3.88</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 2: Sup Tulang Merah -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://th.bing.com/th/id/OIP.3oh5WZjHYnph8JyNs5Tk-wHaFj?w=224&h=180&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3" alt="Sup Tulang Merah">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Sup Tulang Merah</h3>
+                        <p class="product-price">$9.50</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 3: Nasi Goreng Kampung -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://cdn.tasteatlas.com/images/dishes/fdd9ec62ece449568aba60231bdca803.jpg" alt="Nasi Goreng Kampung">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nasi Goreng Kampung</h3>
+                        <p class="product-price">$5.20</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 4: Mee Rebus -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://th.bing.com/th/id/R.b48a17d42ca23cf771c21945e42d6b1c?rik=GyVu46%2bv4ZDkVA&riu=http%3a%2f%2f3.bp.blogspot.com%2f-pY3p4-4-KU0%2fUcVD-CL9zDI%2fAAAAAAAABvU%2fH95LMb1JYfI%2fs1600%2fIMG_0595.JPG&ehk=qgpJuTgNGJ9mZHftIDqk%2fiu2lom8xwrE%2b7eA3CsxxIY%3d&risl=&pid=ImgRaw&r=0" alt="Mee Rebus">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mee Rebus</h3>
+                        <p class="product-price">$5.50</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 5: Satay Ayam -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://2.bp.blogspot.com/-yk9x7ejBn44/Utyk5ovFraI/AAAAAAAALsY/mheRCTrgVbo/s1600/satay+ayam+popular.jpg" alt="Satay Ayam">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Satay Ayam</h3>
+                        <p class="product-price">$6.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product 6: Ais Kacang -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://imgcdn.flamingotravels.co.in/Images/PlacesOfInterest/Enjoy-Malaysian-Dessert-Ais-Kacang-Kuala-Lumpur-Malaysia-Things-To-Do-3.jpg" alt="Ais Kacang">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Ais Kacang</h3>
+                        <p class="product-price">$4.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Product 5 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/images/cheese_burger.png" alt="Cheese Burger">
+        <!-- Breakfast Products Section -->
+        <div class="product-section" id="breakfast" style="display: none;">
+            <h1 class="page-title">Breakfast Dishes</h1>
+            <div class="product-grid">
+                <!-- Breakfast Product 1: Nasi Lemak -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://asianfoodyummy.com/wp-content/uploads/2020/03/2-1.jpg" alt="Nasi Lemak">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nasi Lemak Biasa</h3>
+                        <p class="product-price">$3.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
                 </div>
-                <div class="product-info">
-                    <h3 class="product-name">Cheese Burger</h3>
-                    <p class="product-price">$3.88</p>
-                    <button class="add-to-cart-btn">Add To Cart</button>
+                <!-- Breakfast Product 2: Mee Goreng -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://th.bing.com/th/id/OIP.W0JO6xv0ZV1sfbHklvCinwHaEK?rs=1&pid=ImgDetMain" alt="Mee Goreng">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mee Goreng</h3>
+                        <p class="product-price">$4.50</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Breakfast Product 3: Roti Bakar Kaya -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://magazine.foodpanda.my/wp-content/uploads/sites/12/2020/04/cropped-Roti-Bakar.jpg" alt="Roti Bakar Kaya">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Roti Bakar with Kaya</h3>
+                        <p class="product-price">$2.50</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Product 6 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <img src="assets/images/cheese_burger.png" alt="Cheese Burger">
+        <!-- Roti Canai Products Section -->
+        <div class="product-section" id="roti_canai" style="display: none;">
+            <h1 class="page-title">Roti Canai Dishes</h1>
+            <div class="product-grid">
+                <!-- Roti Canai Product 1: Roti Canai Kosong -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://cdn.kuali.com/wp-content/uploads/2015/05/Roti-canai-1250x830.jpg" alt="Roti Canai Kosong">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Roti Canai Kosong</h3>
+                        <p class="product-price">$1.50</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
                 </div>
-                <div class="product-info">
-                    <h3 class="product-name">Cheese Burger</h3>
-                    <p class="product-price">$3.88</p>
-                    <button class="add-to-cart-btn">Add To Cart</button>
+                <!-- Roti Canai Product 2: Roti Telur -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://2.bp.blogspot.com/-mu2GM02WSc4/V67CWs4rO5I/AAAAAAAAQIg/e9n1VtvBJl41WZtYshsF4JAjaRvBhhryACLcB/s1600/SSWF-RotiTelur.jpg" alt="Roti Telur">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Roti Telur</h3>
+                        <p class="product-price">$2.80</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Roti Canai Product 3: Roti Sardin -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://img-global.cpcdn.com/recipes/57ed965b36f69ad9/1200x630cq70/photo.jpg" alt="Roti Sardin">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Roti Sardin</h3>
+                        <p class="product-price">$4.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Roti Canai Product 4: Roti Tisu -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://as2.ftcdn.net/v2/jpg/03/83/06/01/1000_F_383060191_0eMGQxtxBu1YDOzOPzk1mIy7X9oxX0FO.jpg" alt="Roti Tisu">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Roti Tisu</h3>
+                        <p class="product-price">$3.50</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lunch Set Products Section -->
+        <div class="product-section" id="lunch_set" style="display: none;">
+            <h1 class="page-title">Lunch Set Dishes</h1>
+            <div class="product-grid">
+                <!-- Lunch Set Product 1: Nasi Ayam Penyet Set -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.deliveryhero.io/image/fd-my/LH/e0bv-hero.jpg" alt="Nasi Ayam Penyet Set">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nasi Ayam Penyet Set</h3>
+                        <p class="product-price">$8.50</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Lunch Set Product 2: Nasi Lemak Fried Chicken Set -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://hungrybite.my/wp-content/uploads/2021/06/Nasi-Lemak-scaled.jpg" alt="Nasi Lemak with Fried Chicken Set">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Nasi Lemak w/ Fried Chicken Set</h3>
+                        <p class="product-price">$7.80</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Lunch Set Product 3: Curry Laksa Set -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://live.staticflickr.com/65535/52306094204_70f6597c65_b.jpg" alt="Curry Laksa Set">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Curry Laksa Set</h3>
+                        <p class="product-price">$6.90</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fish Products Section -->
+        <div class="product-section" id="fish" style="display: none;">
+            <h1 class="page-title">Fish Dishes</h1>
+            <div class="product-grid">
+                <!-- Fish Product 1: Grilled Salmon -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://bigoven-res.cloudinary.com/image/upload/t_recipe-1280/grilled-salmon-3f985f.jpg" alt="Grilled Salmon">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Grilled Salmon</h3>
+                        <p class="product-price">$12.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Fish Product 2: Fried Kembung Fish -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ytimg.com/vi/9I5IV5e4yLw/maxresdefault.jpg" alt="Fried Kembung Fish">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Fried Kembung Fish</h3>
+                        <p class="product-price">$5.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Fish Product 3: Sweet Sour Fish -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://tasteasianfood.com/wp-content/uploads/2021/07/sweet-and-sour-fish-feature-image.jpeg" alt="Sweet Sour Fish">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Sweet Sour Fish</h3>
+                        <p class="product-price">$15.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ala-Carte Products Section -->
+        <div class="product-section" id="ala_carte" style="display: none;">
+            <h1 class="page-title">Ala-Carte Dishes</h1>
+            <div class="product-grid">
+                <!-- Ala-Carte Product 1: Fried Rice with Egg -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2021/07/egg-fried-rice-recipe.jpg" alt="Fried Rice with Egg">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Fried Rice with Egg</h3>
+                        <p class="product-price">$4.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Ala-Carte Product 2: Tom Yum Soup -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://thaicaliente.com/wp-content/uploads/2022/01/Tom-Yum-Goong-Feature.jpg" alt="Tom Yum Soup">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Tom Yum Soup</h3>
+                        <p class="product-price">$7.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Ala-Carte Product 3: Kangkung Belacan -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://www.singaporeanmalaysianrecipes.com/wp-content/uploads/2021/08/kangkung-belacan-facebook-SMR.jpg" alt="Kangkung Belacan">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Kangkung Belacan</h3>
+                        <p class="product-price">$6.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Western Products Section -->
+        <div class="product-section" id="western" style="display: none;">
+            <h1 class="page-title">Western Dishes</h1>
+            <div class="product-grid">
+                <!-- Western Product 1: Chicken Chop -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://lifesauces.com.my/wp-content/uploads/2022/02/7-scaled.jpg" alt="Chicken Chop">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Chicken Chop</h3>
+                        <p class="product-price">$9.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Western Product 2: Lamb Chop -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://selfproclaimedfoodie.com/wp-content/uploads/lamb-chops-13-1.jpg" alt="Lamb Chop">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Lamb Chop</h3>
+                        <p class="product-price">$15.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Western Product 3: Spaghetti Carbonara -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://th.bing.com/th/id/R.c1cfbba1fcf66df7d5ebdd8d3952f5ec?rik=Xv0O2%2fVjaxQkdg&riu=http%3a%2f%2fd3cizcpymoenau.cloudfront.net%2fimages%2flegacy%2f37655%2fSFS_spaghetti_carbonara_CLR-3.jpg&ehk=P%2f1IytCgLVqsPtOWIQ2inHvaC2p5p3x5yGeOPtx1BGg%3d&risl=&pid=ImgRaw&r=0" alt="Spaghetti Carbonara">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Spaghetti Carbonara</h3>
+                        <p class="product-price">$8.50</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Goreng Products Section -->
+        <div class="product-section" id="goreng" style="display: none;">
+            <h1 class="page-title">Goreng Dishes</h1>
+            <div class="product-grid">
+                <!-- Goreng Product 1: Kuey Teow Goreng -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://th.bing.com/th/id/OIP.5fEq7PYoeuZX5JU33PD7OAHaEK?w=333&h=187&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3" alt="Kuey Teow Goreng">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Kuey Teow Goreng</h3>
+                        <p class="product-price">$5.00</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Goreng Product 2: Mee Goreng Mamak -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://sifu.unileversolutions.com/image/en-MY/recipe-topvisual/2/1260-709/mee-goreng-mamak-50512744.jpg" alt="Mee Goreng Mamak">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mee Goreng Mamak</h3>
+                        <p class="product-price">$5.50</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
+                </div>
+                <!-- Goreng Product 3: Maggi Goreng -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://www.newmalaysiankitchen.com/wp-content/uploads/2017/05/Easy-Maggi-Goreng-5-Ingredients-600x400.jpg" alt="Maggi Goreng">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Maggi Goreng</h3>
+                        <p class="product-price">$4.80</p>
+                        <button class="add-to-cart-btn">Add To Cart</button>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-        // Quantity selector functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const quantityMinusBtn = document.querySelector('.quantity-minus');
-            const quantityPlusBtn = document.querySelector('.quantity-plus');
-            const quantityDisplay = document.querySelector('.quantity-display');
-            
-            let quantity = 1;
-            
-            quantityMinusBtn.addEventListener('click', function() {
-                if (quantity > 1) {
-                    quantity--;
+            // Initialize cart count and items array
+            let cartCount = 0;
+            let cartItems = [];
+
+            // Navigation Menu Scrolling functionality
+            const navItems = document.querySelector('.nav-items');
+            const navArrowLeft = document.querySelector('.nav-arrow-left');
+            const navArrowRight = document.querySelector('.nav-arrow-right');
+
+            navArrowLeft.addEventListener('click', () => {
+                navItems.scrollLeft -= 100; // Scroll left by 100px
+            });
+
+            navArrowRight.addEventListener('click', () => {
+                navItems.scrollLeft += 100; // Scroll right by 100px
+            });
+
+            // Navigation Item Click Event to switch product sections
+            const navLinks = document.querySelectorAll('.nav-item');
+            const productSections = document.querySelectorAll('.product-section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent default anchor link behavior
+                    const target = this.getAttribute('data-target'); // Get the target section ID
+
+                    // Hide all product sections
+                    productSections.forEach(section => {
+                        section.style.display = 'none';
+                    });
+
+                    // Show the selected product section
+                    const selectedSection = document.getElementById(target);
+                    if (selectedSection) {
+                        selectedSection.style.display = 'block';
+                    }
+
+                    // Update active class for navigation items
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            /**
+             * Function to replace "Add To Cart" button with quantity selector and Confirm/Cancel buttons.
+             * @param {HTMLElement} productCard - The product card element.
+             * @param {string} productName - The name of the product.
+             * @param {string} productPrice - The price of the product.
+             */
+            function createQuantitySelector(productCard, productName, productPrice) {
+                // Update the product info div with quantity controls and action buttons
+                productCard.querySelector('.product-info').innerHTML = `
+                    <h3 class="product-name">${productName}</h3>
+                    <p class="product-price">${productPrice}</p>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn quantity-minus">-</button>
+                        <span class="quantity-display">1</span>
+                        <button class="quantity-btn quantity-plus">+</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="confirm-btn">Confirm</button>
+                        <button class="cancel-btn">Cancel</button>
+                    </div>
+                `;
+
+                // Get references to new quantity buttons and display
+                const quantityMinusBtn = productCard.querySelector('.quantity-minus');
+                const quantityPlusBtn = productCard.querySelector('.quantity-plus');
+                const quantityDisplay = productCard.querySelector('.quantity-display');
+                let quantity = 1; // Initialize quantity for this specific product
+
+                // Add event listener for decreasing quantity
+                quantityMinusBtn.addEventListener('click', function() {
+                    if (quantity > 1) {
+                        quantity--;
+                        quantityDisplay.textContent = quantity;
+                    }
+                });
+
+                // Add event listener for increasing quantity
+                quantityPlusBtn.addEventListener('click', function() {
+                    quantity++;
                     quantityDisplay.textContent = quantity;
-                }
-            });
-            
-            quantityPlusBtn.addEventListener('click', function() {
-                quantity++;
-                quantityDisplay.textContent = quantity;
-            });
-            
-            // Add to cart functionality
+                });
+
+                // Confirm button functionality
+                const confirmBtn = productCard.querySelector('.confirm-btn');
+                confirmBtn.addEventListener('click', function() {
+                    // Create item object to add to cart
+                    const item = {
+                        name: productName,
+                        price: productPrice,
+                        quantity: quantity
+                    };
+                    const orderIndex = cartItems.length; // Store current index for removal later
+                    cartItems.push(item); // Add item to the global cart array
+                    cartCount += quantity; // Update global cart count
+                    document.querySelector('.cart-count').textContent = cartCount; // Update cart display in header
+                    
+                    console.log(`Added to cart: ${quantity} x ${productName} (${productPrice})`);
+                    
+                    // Show confirmed state with "Remove from Cart" button
+                    showConfirmedState(productCard, productName, productPrice, quantity, orderIndex);
+                });
+
+                // Cancel button functionality
+                const cancelBtn = productCard.querySelector('.cancel-btn');
+                cancelBtn.addEventListener('click', function() {
+                    // Reset the product card to its original "Add To Cart" state
+                    resetProductCard(productCard, productName, productPrice);
+                });
+            }
+
+            /**
+             * Function to change product card to a "confirmed" state after adding to cart.
+             * @param {HTMLElement} productCard - The product card element.
+             * @param {string} productName - The name of the product.
+             * @param {string} productPrice - The price of the product.
+             * @param {number} quantity - The quantity added to cart.
+             * @param {number} orderIndex - The index of the item in the cartItems array.
+             */
+            function showConfirmedState(productCard, productName, productPrice, quantity, orderIndex) {
+                productCard.classList.add('order-confirmed'); // Add a class for styling confirmed orders
+                productCard.querySelector('.product-info').innerHTML = `
+                    <h3 class="product-name">${productName}</h3>
+                    <p class="product-price">${productPrice}</p>
+                    <div class="confirmed-message">✓ Added ${quantity}x to cart</div>
+                    <button class="remove-order-btn" data-order-index="${orderIndex}">Remove from Cart</button>
+                `;
+
+                // Add functionality for removing the item from cart
+                const removeOrderBtn = productCard.querySelector('.remove-order-btn');
+                removeOrderBtn.addEventListener('click', function() {
+                    const idxToRemove = parseInt(this.getAttribute('data-order-index')); // Get the original index
+
+                    // Check if the item actually exists at this index before removing
+                    if (cartItems[idxToRemove]) {
+                        const removedItem = cartItems[idxToRemove];
+                        cartCount -= removedItem.quantity; // Decrease global cart count
+
+                        // Remove item from cartItems array
+                        cartItems.splice(idxToRemove, 1);
+                        
+                        // Update cart display in header
+                        document.querySelector('.cart-count').textContent = cartCount;
+                        
+                        console.log(`Removed from cart: ${removedItem.quantity} x ${removedItem.name}`);
+                    }
+                    
+                    // Reset the product card to its original "Add To Cart" state
+                    resetProductCard(productCard, productName, productPrice);
+                });
+            }
+
+            /**
+             * Function to reset a product card back to its initial "Add To Cart" button state.
+             * @param {HTMLElement} productCard - The product card element.
+             * @param {string} productName - The name of the product.
+             * @param {string} productPrice - The price of the product.
+             */
+            function resetProductCard(productCard, productName, productPrice) {
+                productCard.classList.remove('order-confirmed'); // Remove confirmed styling
+                productCard.querySelector('.product-info').innerHTML = `
+                    <h3 class="product-name">${productName}</h3>
+                    <p class="product-price">${productPrice}</p>
+                    <button class="add-to-cart-btn">Add To Cart</button>
+                `;
+
+                // Reattach the event listener to the newly created "Add To Cart" button
+                const newAddToCartBtn = productCard.querySelector('.add-to-cart-btn');
+                newAddToCartBtn.addEventListener('click', function() {
+                    createQuantitySelector(productCard, productName, productPrice);
+                });
+            }
+
+            // Initial setup for "Add To Cart" buttons when the page loads
             const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
             addToCartBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
-                    // Add cart functionality here
-                    console.log('Added to cart');
+                    const productCard = this.closest('.product-card'); // Get the parent product card
+                    const productName = productCard.querySelector('.product-name').textContent;
+                    const productPrice = productCard.querySelector('.product-price').textContent;
+
+                    // Call function to show quantity selector
+                    createQuantitySelector(productCard, productName, productPrice);
                 });
             });
-            
-            // Confirm button functionality
-            const confirmBtn = document.querySelector('.confirm-btn');
-            if (confirmBtn) {
-                confirmBtn.addEventListener('click', function() {
-                    console.log('Confirmed order for quantity:', quantity);
-                });
+
+            // Cart icon click functionality to redirect to checkout page
+            document.querySelector('.cart-icon').addEventListener('click', function() {
+                if (cartItems.length > 0) {
+                    // Serialize cart items into a query string for the checkout page
+                    const queryString = cartItems.map((item, index) => {
+                        return `name${index + 1}=${encodeURIComponent(item.name)}&price${index + 1}=${item.price}&quantity${index + 1}=${item.quantity}`;
+                    }).join('&');
+
+                    // Redirect to checkout.html with the cart data in the URL
+                    window.location.href = `checkout.html?${queryString}`;
+                } else {
+                    // Display a custom message if cart is empty instead of alert()
+                    // You might want to implement a custom modal or toast notification here
+                    console.log('Your cart is empty!'); 
+                    alert('Your cart is empty!'); // Placeholder, replace with custom modal
+                }
+            });
+
+            // Order Status Button Functionality - show modal
+            document.querySelector('.order-status-btn').addEventListener('click', function() {
+                document.getElementById('orderStatusModal').style.display = 'block';
+            });
+
+            // Close Modal Functionality for order status modal
+            document.querySelector('.close-modal').addEventListener('click', function() {
+                document.getElementById('orderStatusModal').style.display = 'none';
+            });
+
+            // Handle Order Status Form Submission
+            document.getElementById('orderStatusForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission to handle via JavaScript
+                const orderNumber = document.getElementById('orderNumber').value;
+                
+                // Simulate checking order status (replace this with actual API call to backend)
+                const orderStatus = checkOrderStatus(orderNumber);
+                document.getElementById('orderStatusMessage').textContent = orderStatus; // Display status message
+            });
+        });
+
+        /**
+         * Simulated function to check order status (replace with real backend API call).
+         * @param {string} orderNumber - The order number to check.
+         * @returns {string} The status message.
+         */
+        function checkOrderStatus(orderNumber) {
+            // In a real application, you would make an API call to a database or backend service
+            // Here, we use simple conditional logic for demonstration
+            if (orderNumber === "12456") {
+                return "Your order is being prepared.";
+            } else if (orderNumber === "67890") {
+                return "Your order has been shipped.";
+            } else {
+                return "Order not found. Please check your order number.";
             }
+        }
+
+        // Logout click event to redirect to landing page
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            // Corrected selector from '.logout' to '.logout-btn' for clarity
+            window.location.href = 'landing.html'; // Redirect to the landing page
         });
     </script>
 </body>

@@ -24,55 +24,7 @@
             <h1 class="order-title">Order Cart #12456</h1>
 
             <!-- Cart Items -->
-            <div class="cart-items">
-                <!-- Cart Item 1 -->
-                <div class="cart-item">
-                    <div class="item-image">
-                        <img src="assets/images/cheese_burger.png" alt="Cheese Burger">
-                    </div>
-                    <div class="item-details">
-                        <h3 class="item-name">Cheese Burger</h3>
-                        <p class="item-price">$3.88</p>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn minus-btn" data-item="1">-</button>
-                            <span class="quantity" data-item="1">1</span>
-                            <button class="quantity-btn plus-btn" data-item="1">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cart Item 2 -->
-                <div class="cart-item">
-                    <div class="item-image">
-                        <img src="assets/images/cheese_burger.png" alt="Cheese Burger">
-                    </div>
-                    <div class="item-details">
-                        <h3 class="item-name">Cheese Burger</h3>
-                        <p class="item-price">$3.88</p>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn minus-btn" data-item="2">-</button>
-                            <span class="quantity" data-item="2">1</span>
-                            <button class="quantity-btn plus-btn" data-item="2">+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Cart Item 3 -->
-                <div class="cart-item">
-                    <div class="item-image">
-                        <img src="assets/images/cheese_burger.png" alt="Cheese Burger">
-                    </div>
-                    <div class="item-details">
-                        <h3 class="item-name">Cheese Burger</h3>
-                        <p class="item-price">$3.88</p>
-                        <div class="quantity-controls">
-                            <button class="quantity-btn minus-btn" data-item="3">-</button>
-                            <span class="quantity" data-item="3">1</span>
-                            <button class="quantity-btn plus-btn" data-item="3">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="cart-items"></div>
 
             <!-- Delivery Information -->
             <div class="delivery-section">
@@ -104,11 +56,30 @@
                 </div>
             </div>
 
+            <!-- Payment Method Section -->
+            <div class="payment-section">
+                <h2 class="section-title">Payment Method</h2>
+                <div class="payment-options">
+                    <label>
+                        <input type="radio" name="payment-method" value="credit-card" checked>
+                        Credit Card
+                    </label>
+                    <label>
+                        <input type="radio" name="payment-method" value="paypal">
+                        PayPal
+                    </label>
+                    <label>
+                        <input type="radio" name="payment-method" value="bank-transfer">
+                        Bank Transfer
+                    </label>
+                </div>
+            </div>
+
             <!-- Order Summary -->
             <div class="order-summary">
                 <div class="summary-row">
                     <span class="summary-label">Subtotal</span>
-                    <span class="summary-value" id="subtotal">$ 100.00</span>
+                    <span class="summary-value" id="subtotal">$ 0.00</span>
                 </div>
                 <div class="summary-row">
                     <span class="summary-label">Delivery fee</span>
@@ -116,12 +87,12 @@
                 </div>
                 <div class="summary-row">
                     <span class="summary-label">Tax</span>
-                    <span class="summary-value">$24.00</span>
+                    <span class="summary-value" id="tax">$0.00</span>
                 </div>
                 <div class="summary-divider"></div>
                 <div class="summary-row total-row">
                     <span class="summary-label total-label">Total</span>
-                    <span class="summary-value total-value" id="total">$ 130.00</span>
+                    <span class="summary-value total-value" id="total">$ 0.00</span>
                 </div>
             </div>
 
@@ -135,54 +106,106 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const minusBtns = document.querySelectorAll('.minus-btn');
-            const plusBtns = document.querySelectorAll('.plus-btn');
-            const quantities = document.querySelectorAll('.quantity');
             
-            // Item price
-            const itemPrice = 3.88;
+            // Delivery fee and tax rate
             const deliveryFee = 6.00;
             const taxRate = 0.24; // 24% tax rate
             
+            // Function to parse URL parameters
+            function getQueryParams() {
+                const params = {};
+                const queryString = window.location.search.substring(1);
+                const regex = /([^&=]+)=([^&]*)/g;
+                let m;
+                while (m = regex.exec(queryString)) {
+                    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+                }
+                console.log(params);
+                return params;
+            }
+
+            // Retrieve cart items from URL parameters
+            const cartItems = [];
+            const params = getQueryParams();
+            for (let i = 1; params[`name${i}`]; i++) {
+                const rawPrice = params[`price${i}`].replace(/[^0-9.]/g, ''); // remove $ or any non-digit/period characters
+                cartItems.push({
+                    name: params[`name${i}`],
+                    price: parseFloat(rawPrice),
+                    quantity: parseInt(params[`quantity${i}`])
+                });
+            }
+
+            console.log(cartItems);
+
+            // Populate cart items in the checkout page
+            const cartItemsContainer = document.querySelector('.cart-items');
+            cartItems.forEach((item, index) => {
+                const cartItemHTML = `
+                    <div class="cart-item">
+                        <div class="item-image">
+                            <img src="assets/images/cheese_burger.png" alt="${item.name}">
+                        </div>
+                        <div class="item-details">
+                            <h3 class="item-name">${item.name}</h3>
+                            <p class="item-price">$${item.price.toFixed(2)}</p>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn minus-btn" data-item="${index}">-</button>
+                                <span class="quantity" data-item="${index}">${item.quantity}</span>
+                                <button class="quantity-btn plus-btn" data-item="${index}">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                cartItemsContainer.insertAdjacentHTML('beforeend', cartItemHTML);
+            });
+
+            // Update totals function
             function updateTotals() {
                 let subtotal = 0;
-                quantities.forEach(qty => {
-                    subtotal += parseInt(qty.textContent) * itemPrice;
+                const quantityElements = document.querySelectorAll('.quantity');
+                quantityElements.forEach((qty, index) => {
+                    console.log('quantity is ' + qty.textContent + ' and price is RM' + cartItems[index].price);
+                    subtotal += parseInt(qty.textContent) * cartItems[index].price;
+                    console.log('subtotal is RM' + subtotal);
                 });
-                
+
                 const tax = subtotal * taxRate;
                 const total = subtotal + deliveryFee + tax;
-                
+
                 document.getElementById('subtotal').textContent = `$ ${subtotal.toFixed(2)}`;
+                document.getElementById('tax').textContent = `$ ${tax.toFixed(2)}`;
                 document.getElementById('total').textContent = `$ ${total.toFixed(2)}`;
             }
-            
+
             // Plus button functionality
-            plusBtns.forEach(btn => {
+            document.querySelectorAll('.plus-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const itemId = this.getAttribute('data-item');
-                    const quantityElement = document.querySelector(`[data-item="${itemId}"].quantity`);
+                    const quantityElement = document.querySelector(`.quantity[data-item="${itemId}"]`);
                     let currentQuantity = parseInt(quantityElement.textContent);
                     currentQuantity++;
                     quantityElement.textContent = currentQuantity;
+                    cartItems[itemId].quantity = currentQuantity;
                     updateTotals();
                 });
             });
-            
+
             // Minus button functionality
-            minusBtns.forEach(btn => {
+            document.querySelectorAll('.minus-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const itemId = this.getAttribute('data-item');
-                    const quantityElement = document.querySelector(`[data-item="${itemId}"].quantity`);
+                    const quantityElement = document.querySelector(`.quantity[data-item="${itemId}"]`);
                     let currentQuantity = parseInt(quantityElement.textContent);
                     if (currentQuantity > 1) {
                         currentQuantity--;
                         quantityElement.textContent = currentQuantity;
+                        cartItems[itemId].quantity = currentQuantity;
                         updateTotals();
                     }
                 });
             });
-            
+
             // Delivery section toggle
             const deliveryTitle = document.querySelector('.section-title');
             const deliveryInfo = document.querySelector('.delivery-info');
@@ -195,7 +218,22 @@
             
             // Action buttons
             document.querySelector('.confirm-btn').addEventListener('click', function() {
-                alert('Order confirmed!');
+                // Get the selected payment method
+                const paymentMethods = document.querySelectorAll('input[name="payment-method"]');
+                let selectedPaymentMethod;
+                
+                paymentMethods.forEach(method => {
+                    if (method.checked) {
+                        selectedPaymentMethod = method.value;
+                    }
+                });
+                // Display a success message based on the selected payment method
+                if (selectedPaymentMethod) {
+                    alert(`Order confirmed! Payment will be processed via ${selectedPaymentMethod}.`);
+                    window.location.href = 'menu.html';
+                } else {
+                    alert('Please select a payment method.');
+                }
             });
             
             document.querySelector('.cancel-btn').addEventListener('click', function() {
@@ -203,6 +241,9 @@
                     window.history.back();
                 }
             });
+
+            // Initial update of totals
+            updateTotals();
         });
     </script>
 </body>
