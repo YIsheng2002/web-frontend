@@ -29,7 +29,7 @@
             <!-- Delivery Information -->
             <div class="delivery-section">
                 <h2 class="section-title">
-                    Delivery
+                    Delivery Details
                     <span class="dropdown-arrow">▼</span>
                 </h2>
                 <div class="delivery-info">
@@ -230,6 +230,7 @@
                 // Display a success message based on the selected payment method
                 if (selectedPaymentMethod) {
                     alert(`Order confirmed! Payment will be processed via ${selectedPaymentMethod}.`);
+                    alert('Your order id is #12456. Please check order status using the id.')
                     window.location.href = 'menu.html';
                 } else {
                     alert('Please select a payment method.');

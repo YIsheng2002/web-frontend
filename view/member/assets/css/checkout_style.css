@@ -205,6 +205,11 @@ body {
     flex: 1;
 }
 
+.payment-section {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid #e9ecef;
+}
+
 /* Order Summary */
 .order-summary {
     padding: 1.5rem 2rem;
