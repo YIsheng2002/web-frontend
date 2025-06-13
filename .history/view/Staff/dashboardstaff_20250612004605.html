@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUP TULANG ZZ</title>
+    <link rel="stylesheet" href="../Staff/assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <script src="dashboardStaff.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <img src="../../assets/images/logo.png" alt="Logo" class="logo">
+            <h1 class="brand-name">SUP TULANG ZZ</h1>
+        </div>
+
+        <div class="user-menu">
+            <div class="user-avatar" onclick="toggleDropdown()">
+                👤
+            </div>
+            <div class="dropdown-menu" id="userDropdown">
+                <a href="#" class="dropdown-item" onclick="showProfile()">
+                    👤 Profile
+                </a>
+                <a href="#" class="dropdown-item" onclick="showSettings()">
+                    ⚙️ Settings
+                </a>
+                <a href="#" class="dropdown-item" onclick="showOrders()">
+                    📋 Orders
+                </a>
+                <a href="#" class="dropdown-item" onclick="showReports()">
+                    📊 Reports
+                </a>
+                <hr style="margin: 8px 0; border: none; border-top: 1px solid #eee;">
+                <a href="#" class="dropdown-item danger" onclick="logout()">
+                    🚪 Logout
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link" onclick="showDashboard()">
+                    membership
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

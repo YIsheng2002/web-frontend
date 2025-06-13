@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUP TULANG ZZ</title>
+    <link rel="stylesheet" href="../Staff/assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/dashboardStaff.css">
+    <script src="./assets/javascript/dashboardStaff.js"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <img src="../../assets/images/logo.png" alt="Logo" class="logo">
+            <h1 class="brand-name">SUP TULANG ZZ</h1>
+        </div>
+
+        <div class="user-menu">
+            <div class="user-avatar" onclick="toggleDropdown()">
+                👤
+            </div>
+            <div class="dropdown-menu" id="userDropdown">
+                <a href="#" class="dropdown-item" onclick="showProfile()">
+                    👤 Profile
+                </a>
+                <a href="#" class="dropdown-item" onclick="showSettings()">
+                    ⚙️ Settings
+                </a>
+                <a href="#" class="dropdown-item" onclick="showOrders()">
+                    📋 Orders
+                </a>
+                <a href="#" class="dropdown-item" onclick="showReports()">
+                    📊 Reports
+                </a>
+                <hr style="margin: 8px 0; border: none; border-top: 1px solid #eee;">
+                <a href="#" class="dropdown-item danger" onclick="logout()">
+                    🚪 Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class=" dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link active" onclick="showMembership(event)">
+                        <div class="sidebar-icon">👥</div>
+                        <span class="sidebar-text">Memberships</span>
+                        <span class="sidebar-arrow">›</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" onclick="showOrders(event)">
+                        <div class="sidebar-icon">📋</div>
+                        <span class="sidebar-text">Orders</span>
+                        <span class="sidebar-arrow">›</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content membership page -->
+        <div class="main-content active" id="membership">
+            <div class="membership-header">
+                <h3>Memberships</h3>
+                <button class="add-membership-btn" onclick="showAddMemberForm(event)">Add Member</button>
+            </div>
+            
+            <div class="dropdown-filter">
+                <button onclick="toggleDropdown()" class="filter-btn">Filter</button>
+                <div id="filterDropdown" class="dropdown-content">
+                    <a href="#" onclick="filterByStatus('olderst-member')">Olderst Member</a>
+                    <a href="#" onclick="filterByStatus('newest-member')">Newest Member</a>
+                    <a href="#" onclick="filterByStatus('highest-total-order')">Higest Orders</a>
+                    <a href="#" onclick="filterByStatus('lowest-total-order')">Lowest Orders</a>
+            </div>
+           
+
+        </div>
+        <!-- Main Content orders page -->
+        <div class="main-content" id="orders">
+            <h3>Orders</h3>
+            <div class="order-list">
+                <div class="order-item">
+                    <span class="order-id">Order #12345</span>
+                    <span class="order-status pending">Pending</span>
+                </div>
+                <div class="order-item">
+                    <span class="order-id">Order #12346</span>
+                    <span class="order-status completed">Completed</span>
+                </div>
+                <div class="order-item">
+                    <span class="order-id">Order #12347</span>
+                    <span class="order-status pending">Pending</span>
+                </div>
+                <div class="order-item">
+                    <span class="order-id">Order #12348</span>
+                    <span class="order-status cancelled">Cancelled</span>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content add member form -->
+        <div class="main-content" id="membershipform">
+            <h3>Add Member</h3>
+            <form id="addMemberForm">
+                <div class="form-group">
+                    <label for="memberName">Full Name:</label>
+                    <input type="text" class="inputfield-fullname" id="memberName" name="memberName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberEmail">Email:</label>
+                    <input type="email" class="input-size" id="memberEmail" name="memberEmail" required>
+                </div>
+
+                <div class="form">
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="input-size" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberphonenumber">Phone Number:</label>
+                        <input type="phone number" class="input-size" id="memberphonenumber" name="memberphonenumber"
+                            required>
+                    </div>
+                </div>
+                <button type="submit" class="add-membershipform-btn">Add Member</button>
+            </form>
+        </div>
+</body>
+
+</html>

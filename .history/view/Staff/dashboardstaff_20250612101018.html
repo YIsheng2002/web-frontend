@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUP TULANG ZZ</title>
+    <link rel="stylesheet" href="../Staff/assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/dashboardStaff.css">
+    <script src="./assets/javascript/dashboardStaff.js"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <img src="../../assets/images/logo.png" alt="Logo" class="logo">
+            <h1 class="brand-name">SUP TULANG ZZ</h1>
+        </div>
+
+        <div class="user-menu">
+            <div class="user-avatar" onclick="toggleDropdown()">
+                👤
+            </div>
+            <div class="dropdown-menu" id="userDropdown">
+                <a href="#" class="dropdown-item" onclick="showProfile()">
+                    👤 Profile
+                </a>
+                <a href="#" class="dropdown-item" onclick="showSettings()">
+                    ⚙️ Settings
+                </a>
+                <a href="#" class="dropdown-item" onclick="showOrders()">
+                    📋 Orders
+                </a>
+                <a href="#" class="dropdown-item" onclick="showReports()">
+                    📊 Reports
+                </a>
+                <hr style="margin: 8px 0; border: none; border-top: 1px solid #eee;">
+                <a href="#" class="dropdown-item danger" onclick="logout()">
+                    🚪 Logout
+                </a>
+            </div>
+        </div>
+    </header>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link" onclick="showMembership(event)">
+                    <img src="./assets/images/membership.png" alt="Membership Icon" class="sidebar-icon">
+                    <span class="sidebar-text">Memberships</span>
+                    <span class="sidebar-arrow">›</span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link" onclick="showOrders(event)">
+                    <img src="./assets/images/foodOrder.png" alt="Orders Icon" class="sidebar-icon">
+                    <span class="sidebar-text">Orders</span>
+                    <span class="sidebar-arrow">›</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- Main Content -->
+    <div class="main-content">
+          <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showPage('Memberships')">Current Orders</button>
+            <button class="nav-tab" onclick="showPage('orders')">Completed Orders</button>
+        </div>
+
+        <div id="Memberships" class="page active">
+            <div class="membership-header">
+                <h2>Membership</h2>
+                <button class="add-member-button">Add Member</button>
+            </div>
+            <!-- Membership page -->
+            <div class="membership-controls">
+                <div class="filter">
+                    <button class="filter-button">Add filter ▼</button>
+                </div>
+                <div class="search">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search for a member by name or email">
+                </div>
+
+            </div>
+
+            <div class="membership-empty-state">
+                <div class="empty-box">
+                    <p class="no-members-title">No Members at this time</p>
+                    <p class="no-members-desc">Members will appear here after they register account.</p>
+                </div>
+            </div>
+
+        </div>
+        <!-- Current Orders Page -->
+        <div id="current-orders" class="page">
+            <h2>Orders</h2>
+            <p>No orders yet.</p>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>
