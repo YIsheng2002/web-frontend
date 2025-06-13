@@ -90,6 +90,7 @@
                     <div>Name</div>
                     <div>Email</div>
                     <div>Gender</div>
+                    <div>Action</div>
                 </div>
             </div>
 
@@ -100,6 +101,8 @@
                 </div>
                 <div class="member-email">michelle@example.com</div>
                 <div class="member-gender">Female</div>
+                <button class="member-edit" onclick="showEditMemberForm(event)">Edit</button>
+                <button class="member-delete" onclick="deleteMember()">Delete</button>
             </div>
 
             <div class="member-row-highlighted">
@@ -108,6 +111,8 @@
                     Marvin McKinney</div>
                 <div class="member-email">marvin.mckinney@example.com</div>
                 <div class="member-gender">Male</div>
+                <button class="member-edit" onclick="showEditMemberForm(event)">Edit</button>
+                <button class="member-delete" onclick="deleteMember()">Delete</button>
             </div>
 
             <div class="member-row">
@@ -116,6 +121,8 @@
                 </div>
                 <div class="member-email">sarah.connor@example.com</div>
                 <div class="member-gender">Female</div>
+                <button class="member-edit" onclick="showEditMemberForm(event)">Edit</button>
+                <button class="member-delete" onclick="deleteMember()">Delete</button>
             </div>
 
             <div class="member-row-highlighted">
@@ -124,6 +131,8 @@
                 </div>
                 <div class="member-email">johndoe@example.com</div>
                 <div class="member-gender">Male</div>
+                <button class="member-edit" onclick="showEditMemberForm(event)">Edit</button>
+                <button class="member-delete" onclick="deleteMember()">Delete</button>
             </div>
 
             <div class="member-row">
@@ -133,6 +142,8 @@
                 </div>
                 <div class="member-email">emily.wong@example.com</div>
                 <div class="member-gender">Female</div>
+                <button class="member-edit" onclick="showEditMemberForm(event)">Edit</button>
+                <button class="member-delete" onclick="deleteMember()">Delete</button>
             </div>
 
             <div class="member-row-highlighted">
@@ -141,6 +152,8 @@
                 </div>
                 <div class="member-email">ahmad.rahman@example.com</div>
                 <div class="member-gender">Male</div>
+                <button class="member-edit" onclick="showEditMemberForm(event)">Edit</button>
+                <button class="member-delete" onclick="deleteMember()">Delete</button>
             </div>
 
             <div class="member-row">
@@ -150,6 +163,8 @@
                 </div>
                 <div class="member-email">hafizr88@mail.com</div>
                 <div class="member-gender">Male</div>
+                <button class="member-edit" onclick="showEditMemberForm(event)">Edit</button>
+                <button class="member-delete" onclick="deleteMember()">Delete</button>
             </div>
         </div>
         <!-- Main Content add member form -->
@@ -178,6 +193,36 @@
                     </div>
                 </div>
                 <button type="submit" class="add-membershipform-btn">Add Member</button>
+            </form>
+        </div>
+
+        <!-- Main Content edit member form -->
+        <div class="main-content" id="editMembershipform">
+            <h3>Edit Member</h3>
+            <form id="editMemberForm">
+                <div class="form-group">
+                    <label for="memberName">Full Name:</label>
+                    <input type="text" class="inputfield-fullname" id="editMemberName" name="memberName" value="Michelle" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberEmail">Email:</label>
+                    <input type="email" class="input-size" id="editMemberEmail" name="memberEmail" value="michelle@example.com" required>
+                </div>
+
+                <div class="form">
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="input-size" id="editPassword" name="password" value="Testing123" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberphonenumber">Phone Number:</label>
+                        <input type="phone number" class="input-size" id="editMemberphonenumber" value="016-1234567" name="memberphonenumber"
+                            required>
+                    </div>
+                </div>
+                <button type="submit" class="edit-membershipform-btn" onclick="editMember()">Edit Member</button>
+                <button type="reset" class="cancel-edit-btn">Cancel</button>
             </form>
         </div>
 
