@@ -89,6 +89,11 @@ function showAddMemberForm(event) {
     showPage('membershipform', event.currentTarget);
 }
 
+function showEditMemberForm(event){
+  event.preventDefault();
+  showPage('editMembershipform', event.currentTarget);
+}
+
 function showNotifications(event){
   event.preventDefault();
   showPage('notifications', event.currentTarget);
@@ -361,3 +366,19 @@ const dummyMemberProfiles = [
     phone: "018-1234567"
   }
 ];
+
+function editMember(){
+  if(confirm('Press Ok to confirm edit.')== true){
+    alert("Edit successful, Member's details have been updated.");
+  }else{
+    alert("Edit failed.")
+  }
+}
+
+function deleteMember(){
+  if(confirm('Press Ok to confirm delete.')==true){
+    alert("Delete successful, member has been deleted.");
+  } else{
+    alert("Delete failed.")
+  }
+}

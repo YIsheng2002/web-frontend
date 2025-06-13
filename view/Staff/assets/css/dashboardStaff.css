@@ -194,6 +194,16 @@
     line-height: 1.6;
 }
 
+.member-edit {
+  background-color: #4caf50;
+  color: white;
+}
+
+.member-delete {
+  background-color: #f44336;
+  color: white;
+}
+
 /* Orders Content */
 .order-list {
     margin-top: 20px;
@@ -225,7 +235,7 @@
   gap: 8px;
 }
 
-.accept-btn, .decline-btn {
+.accept-btn, .decline-btn, .member-edit, .member-delete {
   padding: 8px 12px;
   border: none;
   border-radius: 6px;
@@ -241,6 +251,24 @@
 .decline-btn {
   background-color: #f44336;
   color: white;
+}
+
+/* Hover effect */
+.accept-btn:hover,
+.decline-btn:hover,
+.member-edit:hover,
+.member-delete:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+/* Click/active effect */
+.accept-btn:active,
+.decline-btn:active,
+.member-edit:active,
+.member-delete:active {
+  transform: scale(0.98);
+  filter: brightness(0.95);
 }
 
 .status-tag.status-preparing {
@@ -394,6 +422,54 @@
 .add-membershipform-btn:active {
     transform: translateY(1px);
 }
+
+.edit-membershipform-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+
+}
+
+.edit-membershipform-btn:hover {
+    background-color: #cf4436;
+    /* slightly darker on hover */
+}
+
+.edit-membershipform-btn:active {
+    transform: translateY(1px);
+}
+
+.cancel-edit-btn {
+    background-color: #a8a8a8;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+
+}
+
+.cancel-edit-btn:hover {
+    background-color: #dddddd;
+    /* slightly darker on hover */
+}
+
+.cancel-edit-btn:active {
+    transform: translateY(1px);
+}
+
+
 
 .form-passwordfield {
     display: flex;
