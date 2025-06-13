@@ -257,7 +257,7 @@
   padding: 8px;
   border-radius: 6px;
   font-size: 14px;
-  width: 100%;
+  width: max-content;
 }
 
 
@@ -552,6 +552,7 @@
 }
 
 .assign-btn {
+    width: max-content;
     background-color: #4caf50;
     color: white;
     border: none;
@@ -601,8 +602,10 @@
     animation: fadeIn 0.5s ease-in;
 }
 
-
-
+.main-content .active{
+    display: block;
+    animation: fadeIn 0.5s ease-in;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {

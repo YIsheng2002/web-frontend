@@ -89,6 +89,11 @@ function showAddMemberForm(event) {
     showPage('membershipform', event.currentTarget);
 }
 
+function showNotifications(event){
+  event.preventDefault();
+  showPage('notifications', event.currentTarget);
+}
+
 // User menu actions
 function showProfile() {
     alert('Profile page - Coming soon!');

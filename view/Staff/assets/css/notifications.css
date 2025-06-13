@@ -17,7 +17,7 @@
   padding: 10px 15px;
   background: rgba(52, 152, 219, 0.1);
   border-radius: 25px;
-  border: 2px solid rgba(52, 152, 219, 0.3);
+  border: 2px solid #DE4345;
 }
 
 .stat-item i {
@@ -39,7 +39,7 @@
 }
 
 .notifications-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #DE4345 0%, #DE4345 100%);
   color: white;
   padding: 25px 30px;
   display: flex;
@@ -178,7 +178,7 @@
 
 .order-id {
   background: rgba(52, 152, 219, 0.1);
-  color: #3498db;
+  color: #DE4345;
   padding: 2px 8px;
   border-radius: 10px;
   font-weight: 500;
@@ -259,16 +259,16 @@
 .filter-tab {
   padding: 8px 16px;
   background: transparent;
-  border: 2px solid rgba(52, 152, 219, 0.3);
+  border: 2px solid rgba(223, 5, 5, 0.3);
   border-radius: 20px;
   cursor: pointer;
   font-size: 14px;
-  color: #3498db;
+  color: #DE4345;
   transition: all 0.3s ease;
 }
 
 .filter-tab.active {
-  background: #3498db;
+  background: #DE4345;
   color: white;
 }
 
