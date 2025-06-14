@@ -225,7 +225,7 @@ body {
 
 .add-to-cart-btn {
     width: 100%;
-    background-color: #e74c3c;
+    background-color: #ff0000;
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -237,7 +237,7 @@ body {
 }
 
 .add-to-cart-btn:hover {
-    background-color: #c0392b;
+    background-color: #cc0000;
     transform: translateY(-1px);
 }
 
@@ -335,9 +335,18 @@ body {
     transform: translateY(0);
 }
 
+.cancel-btn:hover {
+    background-color: #cc0000;
+    transform: translateY(-1px);
+}
+
+.cancel-btn:active {
+    transform: translateY(0);
+}
+
 .remove-order-btn {
     width: 100%;
-    background-color: #dc3545;
+    background-color: #ff0000;
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -349,7 +358,7 @@ body {
 }
 
 .remove-order-btn:hover {
-    background-color: #c82333;
+    background-color: #cc0000;
     transform: translateY(-1px);
 }
 
