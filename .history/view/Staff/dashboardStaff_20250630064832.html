@@ -99,7 +99,7 @@
             </div>
         </div>
 
-
+        
         <!-- Main Content add member form -->
         <div class="main-content" id="membershipform">
             <h3>Add Member</h3>
@@ -157,7 +157,8 @@
 
                 <div class="form-group">
                     <label for="member-address">Address:</label>
-                    <input type="address" class="input-size" id="member-address" name="member-address" required>
+                    <input type="address" class="input-size" id="member-address" name="member-address"
+                        required>
                 </div>
 
                 <div class='form-group'>
@@ -189,7 +190,8 @@
                 <!-- Member Type Dropdown-->
                 <div class='form-group'>
                     <label for="member-Type">Member Type:</label>
-                    <select class="input-size" id="memberType" name="memberType" onchange="handleEditMemberTypeChange()" required>
+                    <select class="input-size" id="memberType" name="memberType" required
+                        onchange="handleMemberTypeChange()">
                         <option value="">-- Select Member Type --</option>
                         <option value="staff">Staff</option>
                         <option value="runner">Runner</option>
@@ -225,11 +227,6 @@
                         required>
                 </div>
 
-                <div class="form-group">
-                    <label for="member-address">Address:</label>
-                    <input type="address" class="input-size" id="member-address" name="member-address" required>
-                </div>
-
                 <div class='form-group'>
                     <label for="member-gender">Gender:</label>
                     <select class="input-size" id="memberGender" name="memberGender">
@@ -240,17 +237,16 @@
                 </div>
 
                 <!-- Runner Type (hidden by default) -->
-                <div class="form-group hidden" id="runnerTypeGroupEdit">
+                <div class="form-group hidden" id="runnerTypeGroup">
                     <label for="member-runnerType">Runner Type:</label>
-                    <select class="input-size" id="member-runnerType" name="member-runnerType" required
-                    onchange="handleEditMemberTypeChange()">
+                    <select class="input-size" id="member-runnerType" name="member-runnerType">
                         <option value="">-- Select Runner Type --</option>
                         <option value="Grab">Grab</option>
                         <option value="FoodPanda">Food Panda</option>
                     </select>
                 </div>
-                <button type="submit" class="edit-membershipform-btn">Edit Member</button>
-                <button type="reset" class="cancel-edit-btn" onclick="cancelEdit()">Cancel</button>
+           <button type="submit" class="edit-membershipform-btn">Edit Member</button>
+            <button type="reset" class="cancel-edit-btn" onclick="cancelEdit()">Cancel</button>
             </form>
         </div>
 

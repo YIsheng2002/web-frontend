@@ -71,119 +71,91 @@
 
 .dropdown-item.danger:hover {
     background: #fee;
-    color: #7be73c;
+    color: #e74c3c;
 }
 
 
 :root {
-  --primary-color: #e74c3c;
-  --success-color: #2ecc71;
-  --text-light: #ffffff;
-  --dropdown-bg: #fefefe;
-  --dropdown-hover: #fbeaea;
-  --dropdown-disabled: #e0e0e0;
+    --primary-color: #e74c3c;
+    --success-color: #4caf50;
+    --warning-color: #ff9800;
+    --info-color: #2196f3;
 }
 
-:root {
-  --primary-color: #e74c3c;
-  --text-light: #ffffff;
-}
-
-/* Dropdown container */
+/* Enhanced Runner Dropdown Styles */
 .runner-dropdown {
-  position: relative;
-  display: inline-block;
-  min-width: 200px;
-  margin: 4px 0;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.2s ease-in-out;
+    position: relative;
+    display: inline-block;
+    min-width: 180px;
 }
 
-/* Styled <select> */
 .runner-dropdown select {
-  appearance: none;
-  background-color: var(--primary-color);
-  color: var(--text-light);
-  font-weight: bold;
-  font-size: 14px;
-  padding: 10px 40px 10px 16px;
-  border: none;
-  width: 100%;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.25s ease;
+    background: var(--primary-color);
+    color: #fff;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 10px 40px 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    transition: all 0.25s ease;
 }
 
-/* Remove default arrow and add custom arrow */
-.runner-dropdown::after {
-  content: "▾";
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: white;
-  pointer-events: none;
-  font-size: 13px;
-  transition: transform 0.3s ease;
-}
-
-.runner-dropdown:hover::after {
-  transform: translateY(-50%) rotate(180deg);
-}
-
-/* Hover and focus styles */
 .runner-dropdown select:hover {
-  background-color: #ff6659;
+    filter: brightness(1.1);
+    transform: translateY(-1px);
 }
 
 .runner-dropdown select:focus {
-  background-color: #ff7961;
-  box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.2);
-  outline: none;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
 }
 
-/* Disabled dropdown */
-.runner-dropdown select:disabled {
-  background-color: #ddd;
-  color: #777;
-  cursor: not-allowed;
+.runner-dropdown select:active {
+    transform: scale(0.98);
 }
 
-/* === 🔥 Fix blue/green highlight issues === */
-
-/* Force all options to have consistent style */
-.runner-dropdown select,
-.runner-dropdown select option {
-  background-color: var(--primary-color);
-  color: white;
-  font-weight: bold;
-  border: none;
-  outline: none;
+/* Custom dropdown arrow */
+.runner-dropdown::after {
+    content: "▼";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #fff;
+    font-size: 12px;
+    transition: transform 0.25s ease;
 }
 
-/* Remove blue highlight on selected item (Chrome) */
-.runner-dropdown select option:checked {
-  background-color: var(--primary-color);
-  color: white;
+.runner-dropdown:hover::after {
+    transform: translateY(-50%) rotate(180deg);
 }
 
-/* Remove green autofill background (Firefox/Edge) */
-.runner-dropdown select:-internal-autofill-selected {
-  background-color: var(--primary-color) !important;
-  color: white !important;
+/* Assigned state styling */
+.runner-dropdown.assigned select {
+    background: var(--success-color);
+    border-color: var(--success-color);
 }
 
-/* Attempt to style option hover (may not work in all browsers) */
-.runner-dropdown select option:hover {
-  background-color: #ff6659;
+.runner-dropdown.assigned::after {
+    color: #fff;
 }
 
-/* Spinner animation */
-@keyframes spin {
-  0% { transform: translateY(-50%) rotate(0deg); }
-  100% { transform: translateY(-50%) rotate(360deg); }
+/* Loading state */
+.runner-dropdown.loading select {
+    background: #95a5a6;
+    border-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.runner-dropdown.loading::after {
+    content: "⟳";
+    animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -191,37 +163,53 @@
     to { transform: translateY(-50%) rotate(360deg); }
 }
 
-
-.order-status {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: bold;
-  text-transform: capitalize;
+/* Runner-specific colors for options */
+.runner-dropdown select option[value="default"] {
+    background: var(--primary-color);
+    color: #fff;
 }
 
-/* Status-specific styles */
-.order-status.delivered {
-  background-color: #d4fcd7;
-  color: #2e7d32;
+.runner-dropdown select option[value="grab"] {
+    background: var(--success-color);
+    color: #fff;
 }
 
-.order-status.pending {
-  background-color: #fff3cd;
-  color: #856404;
+.runner-dropdown select option[value="foodpanda"] {
+    background: #e91e63;
+    color: #fff;
 }
 
-.order-status.cancelled {
-  background-color: #f8d7da;
-  color: #721c24;
+.runner-dropdown select option[value="runner1"] {
+    background: var(--info-color);
+    color: #fff;
 }
 
-.order-status.ongoing {
-  background-color: #d1ecf1;
-  color: #0c5460;
+.runner-dropdown select option[value="runner2"] {
+    background: var(--warning-color);
+    color: #fff;
 }
 
+/* Status indicator */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--success-color);
+    animation: pulse 2s infinite;
+}
+
+.status-text {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+}
 
 @keyframes pulse {
     0% { opacity: 1; }
@@ -445,7 +433,12 @@
   color: #256029;
 }
 
-
+.runner-dropdown {
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  width: max-content;
+}
 
 
 /* Membership Header */
@@ -736,7 +729,7 @@
   margin-right: 8px;
 }
 
-.member-name,.member-address,
+.member-name,
 .member-role,.member-email,.member-gender, 
 .member-password, .member-repassword,
 .member-phone, .member-runnerType {
@@ -799,8 +792,8 @@
 .order-id-badge {
   display: inline-block;
   padding: 4px 10px;
-  background-color: rgb(166, 163, 163); /* light pink */
-  color: white;           /* red text */
+  background-color: #814c63; /* light pink */
+  color: #d32f2f;            /* red text */
   font-weight: bold;
   border-radius: 12px;
   font-size: 14px;

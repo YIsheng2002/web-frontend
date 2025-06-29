@@ -61,16 +61,7 @@ function showSettings() { alert('Settings page - Coming soon!'); toggleDropdown(
 function logout() {
   if (confirm('Are you sure you want to logout?')) {
     alert('Logged out successfully!');
-    // Clear localStorage or sessionStorage (depending on your implementation)
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('adminEmail'); // or 'userEmail' if you store user info
-    localStorage.removeItem('adminName');
-    // Optionally clear everything:
-    // localStorage.clear();
-
-    // Redirect to login page
-    window.location.href = 'loginStaff.html'; // adjust filename as needed
+    // Implement logout logic
   }
   toggleDropdown();
 }
@@ -172,7 +163,6 @@ function validateEditMemberForm(formData) {
   if (!formData.email.trim() || !formData.email.includes('@')) errors.push('Valid Email is required.');
   if (!formData.phoneNumber.trim()) errors.push('Phone Number is required.');
   if (!formData.gender) errors.push('Gender is required.');
-  if (!formData.address.trim()) errors.push('Address is required.');
 
 
   return errors;
@@ -230,7 +220,6 @@ async function handleAddMember(event) {
     repassword: document.getElementById('member-repassword').value,
     phoneNumber: document.getElementById('member-phonenumber').value,
     gender: document.getElementById('memberGender').value,
-    address: document.getElementById('member-address').value, // New field for address
     runnerType: document.getElementById('member-runnerType').value
   };
 
@@ -279,7 +268,6 @@ function validateAddMemberForm(formData) {
   if (formData.password !== formData.repassword) errors.push('Passwords do not match.');
   if (!formData.phoneNumber.trim()) errors.push('Phone Number is required.');
   if (!formData.gender) errors.push('Gender is required.');
-  if (!formData.address.trim()) errors.push('Address is required.');
 
   // Only validate runnerType if role is "runner"
   if (formData.role === 'runner' && !formData.runnerType) {
@@ -314,20 +302,6 @@ function handleMemberTypeChange() {
   }
 }
 
-function handleEditMemberTypeChange() {
-  const editFormFields = document.querySelector('#editMembershipform');
-  const memberType = editFormFields.querySelector('#memberType').value;
-  const runnerTypeGroup = editFormFields.querySelector('#runnerTypeGroupEdit');
-
-  if (memberType === 'runner') {
-    runnerTypeGroup.classList.remove('hidden');
-  } else {
-    runnerTypeGroup.classList.add('hidden');
-    editFormFields.querySelector('#member-runnerType').value = '';
-  }
-}
-
-
 function handleEditButtonClick(event, memberData) {
   event.preventDefault();
 
@@ -352,7 +326,6 @@ function handleEditButtonClick(event, memberData) {
   const phoneField = editFormFields.querySelector('#member-phonenumber');
   const genderField = editFormFields.querySelector('#memberGender');
   const runnerTypeField = editFormFields.querySelector('#member-runnerType');
-  const addressField = editFormFields.querySelector('#member-address');
 
   // Populate the fields
   if (role) role.value = memberData.role || ''; // Default to 'staff' if not provided
@@ -362,15 +335,13 @@ function handleEditButtonClick(event, memberData) {
   if (emailField) emailField.value = memberData.email || '';
   if (phoneField) phoneField.value = memberData.phonenumber || '';
   if (genderField) genderField.value = memberData.gender || '';
-  if (runnerTypeField) runnerTypeField.value = memberData.runner_type || '';
-  if (addressField) addressField.value = memberData.address || ''; // Default to empty if not provided     
+  if (runnerTypeField) runnerTypeField.value = memberData.runner_type || ''; // Default to empty if not provided     
 
   // Clear password fields for security
   const passwordField = editFormFields.querySelector('#member-password');
   const rePasswordField = editFormFields.querySelector('#member-repassword');
   if (passwordField) passwordField.value = '';
   if (rePasswordField) rePasswordField.value = '';
-  handleEditMemberTypeChange(); // This will show or hide runnerTypeGroupEdit
 }
 
 // editMember function to handle the actual edit submission
@@ -394,8 +365,7 @@ async function editMember() {
     email: editFormFields.querySelector('#member-email').value,
     phoneNumber: editFormFields.querySelector('#member-phonenumber').value,
     gender: editFormFields.querySelector('#memberGender').value,
-    runnerType: editFormFields.querySelector('#member-runnerType').value,
-    address: editFormFields.querySelector('#member-address').value // New field for address
+    runnerType: editFormFields.querySelector('#member-runnerType').value
   };
 
   // Validate form data
@@ -566,45 +536,6 @@ function filterByStatus(role) {
   document.getElementById('filterDropdown').classList.remove('show');
 }
 
-function searchMembership() {
-  const input = document.getElementById('search-input');
-  const filter = input.value.toLowerCase();
-
-  const rows = document.querySelectorAll('.member-row, .member-row-highlighted');
-  let anyVisible = false;
-
-  rows.forEach(row => {
-    const name = row.querySelector('.member-name')?.textContent.toLowerCase() || '';
-    const email = row.querySelector('.member-email')?.textContent.toLowerCase() || '';
-    const phone = row.querySelector('.member-phone')?.textContent.toLowerCase() || '';
-
-    if (name.includes(filter) || email.includes(filter) || phone.includes(filter)) {
-      row.style.display = '';
-      anyVisible = true;
-    } else {
-      row.style.display = 'none';
-    }
-  });
-
-  const notFoundMessage = document.getElementById('no-members-message');
-
-  if (!anyVisible) {
-    if (!notFoundMessage) {
-      const message = document.createElement('div');
-      message.id = 'no-members-message';
-      message.textContent = 'No members found.';
-      message.style.padding = '20px';
-      message.style.fontWeight = 'bold';
-      message.style.color = '#e74c3c';
-      message.style.textAlign = 'center';
-      document.querySelector('.members-container').appendChild(message);
-    }
-  } else {
-    if (notFoundMessage) {
-      notFoundMessage.remove();
-    }
-  }
-}
 
 
 /* Utility Functions*/
@@ -742,10 +673,10 @@ async function renderCurrentOrders(orderList) {
     }).join('');
 
     row.innerHTML = `
-      <div class="order-id-badge">Order#${order.order_id}</div>
+      <div>${order.order_id}</div>
       <div>${order.customer_first_name} ${order.customer_last_name}</div>
       <div>${order.delivery_address || 'N/A'}</div>
-      <div class="runner-dropdown">
+      <div>
         <select ${isUnassigned ? '' : 'disabled'}>
           <option disabled ${isUnassigned ? 'selected' : ''}>${isUnassigned ? 'Assign runner' : 'Assigned'}</option>
           ${runnerOptions}
@@ -829,10 +760,10 @@ function renderCompletedOrders(orderList) {
     const row = document.createElement('div');
     row.className = 'order-row completed';
     row.innerHTML = `
-      <div class="order-id-badge">Order#${order.order_id}</div>
+      <div>${order.order_id}</div>
       <div>${order.customer_first_name} ${order.customer_last_name}</div>
       <div>${order.completed_at || '-'}</div>
-      <div><span class="order-status ${order.status.toLowerCase()}">${order.status}</span></div>`;
+      <div>${order.status}</div>`;
     container.appendChild(row);
   });
 }

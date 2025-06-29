@@ -61,16 +61,7 @@ function showSettings() { alert('Settings page - Coming soon!'); toggleDropdown(
 function logout() {
   if (confirm('Are you sure you want to logout?')) {
     alert('Logged out successfully!');
-    // Clear localStorage or sessionStorage (depending on your implementation)
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('adminEmail'); // or 'userEmail' if you store user info
-    localStorage.removeItem('adminName');
-    // Optionally clear everything:
-    // localStorage.clear();
-
-    // Redirect to login page
-    window.location.href = 'loginStaff.html'; // adjust filename as needed
+    // Implement logout logic
   }
   toggleDropdown();
 }
@@ -172,7 +163,7 @@ function validateEditMemberForm(formData) {
   if (!formData.email.trim() || !formData.email.includes('@')) errors.push('Valid Email is required.');
   if (!formData.phoneNumber.trim()) errors.push('Phone Number is required.');
   if (!formData.gender) errors.push('Gender is required.');
-  if (!formData.address.trim()) errors.push('Address is required.');
+  if(!formData.address.trim()) errors.push('Address is required.');
 
 
   return errors;
@@ -363,7 +354,7 @@ function handleEditButtonClick(event, memberData) {
   if (phoneField) phoneField.value = memberData.phonenumber || '';
   if (genderField) genderField.value = memberData.gender || '';
   if (runnerTypeField) runnerTypeField.value = memberData.runner_type || '';
-  if (addressField) addressField.value = memberData.address || ''; // Default to empty if not provided     
+  if(addressField) addressField.value = memberData.address || ''; // Default to empty if not provided     
 
   // Clear password fields for security
   const passwordField = editFormFields.querySelector('#member-password');

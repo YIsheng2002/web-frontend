@@ -61,16 +61,7 @@ function showSettings() { alert('Settings page - Coming soon!'); toggleDropdown(
 function logout() {
   if (confirm('Are you sure you want to logout?')) {
     alert('Logged out successfully!');
-    // Clear localStorage or sessionStorage (depending on your implementation)
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('adminEmail'); // or 'userEmail' if you store user info
-    localStorage.removeItem('adminName');
-    // Optionally clear everything:
-    // localStorage.clear();
-
-    // Redirect to login page
-    window.location.href = 'loginStaff.html'; // adjust filename as needed
+    // Implement logout logic
   }
   toggleDropdown();
 }
@@ -172,7 +163,7 @@ function validateEditMemberForm(formData) {
   if (!formData.email.trim() || !formData.email.includes('@')) errors.push('Valid Email is required.');
   if (!formData.phoneNumber.trim()) errors.push('Phone Number is required.');
   if (!formData.gender) errors.push('Gender is required.');
-  if (!formData.address.trim()) errors.push('Address is required.');
+  if(!formData.address.trim()) errors.push('Address is required.');
 
 
   return errors;
@@ -314,20 +305,6 @@ function handleMemberTypeChange() {
   }
 }
 
-function handleEditMemberTypeChange() {
-  const editFormFields = document.querySelector('#editMembershipform');
-  const memberType = editFormFields.querySelector('#memberType').value;
-  const runnerTypeGroup = editFormFields.querySelector('#runnerTypeGroupEdit');
-
-  if (memberType === 'runner') {
-    runnerTypeGroup.classList.remove('hidden');
-  } else {
-    runnerTypeGroup.classList.add('hidden');
-    editFormFields.querySelector('#member-runnerType').value = '';
-  }
-}
-
-
 function handleEditButtonClick(event, memberData) {
   event.preventDefault();
 
@@ -363,14 +340,13 @@ function handleEditButtonClick(event, memberData) {
   if (phoneField) phoneField.value = memberData.phonenumber || '';
   if (genderField) genderField.value = memberData.gender || '';
   if (runnerTypeField) runnerTypeField.value = memberData.runner_type || '';
-  if (addressField) addressField.value = memberData.address || ''; // Default to empty if not provided     
+  if(addressField) addressField.value = memberData.address || ''; // Default to empty if not provided     
 
   // Clear password fields for security
   const passwordField = editFormFields.querySelector('#member-password');
   const rePasswordField = editFormFields.querySelector('#member-repassword');
   if (passwordField) passwordField.value = '';
   if (rePasswordField) rePasswordField.value = '';
-  handleEditMemberTypeChange(); // This will show or hide runnerTypeGroupEdit
 }
 
 // editMember function to handle the actual edit submission
@@ -570,41 +546,24 @@ function searchMembership() {
   const input = document.getElementById('search-input');
   const filter = input.value.toLowerCase();
 
+  // Select both normal and highlighted rows
   const rows = document.querySelectorAll('.member-row, .member-row-highlighted');
-  let anyVisible = false;
 
   rows.forEach(row => {
     const name = row.querySelector('.member-name')?.textContent.toLowerCase() || '';
     const email = row.querySelector('.member-email')?.textContent.toLowerCase() || '';
     const phone = row.querySelector('.member-phone')?.textContent.toLowerCase() || '';
 
+    // Show if any field matches
     if (name.includes(filter) || email.includes(filter) || phone.includes(filter)) {
       row.style.display = '';
-      anyVisible = true;
     } else {
       row.style.display = 'none';
     }
   });
-
-  const notFoundMessage = document.getElementById('no-members-message');
-
-  if (!anyVisible) {
-    if (!notFoundMessage) {
-      const message = document.createElement('div');
-      message.id = 'no-members-message';
-      message.textContent = 'No members found.';
-      message.style.padding = '20px';
-      message.style.fontWeight = 'bold';
-      message.style.color = '#e74c3c';
-      message.style.textAlign = 'center';
-      document.querySelector('.members-container').appendChild(message);
-    }
-  } else {
-    if (notFoundMessage) {
-      notFoundMessage.remove();
-    }
-  }
 }
+
+
 
 
 /* Utility Functions*/
@@ -832,7 +791,7 @@ function renderCompletedOrders(orderList) {
       <div class="order-id-badge">Order#${order.order_id}</div>
       <div>${order.customer_first_name} ${order.customer_last_name}</div>
       <div>${order.completed_at || '-'}</div>
-      <div><span class="order-status ${order.status.toLowerCase()}">${order.status}</span></div>`;
+      <div>${order.status}</div>`;
     container.appendChild(row);
   });
 }

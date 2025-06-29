@@ -189,7 +189,8 @@
                 <!-- Member Type Dropdown-->
                 <div class='form-group'>
                     <label for="member-Type">Member Type:</label>
-                    <select class="input-size" id="memberType" name="memberType" onchange="handleEditMemberTypeChange()" required>
+                    <select class="input-size" id="memberType" name="memberType" required
+                        onchange="handleMemberTypeChange()">
                         <option value="">-- Select Member Type --</option>
                         <option value="staff">Staff</option>
                         <option value="runner">Runner</option>
@@ -242,8 +243,7 @@
                 <!-- Runner Type (hidden by default) -->
                 <div class="form-group hidden" id="runnerTypeGroupEdit">
                     <label for="member-runnerType">Runner Type:</label>
-                    <select class="input-size" id="member-runnerType" name="member-runnerType" required
-                    onchange="handleEditMemberTypeChange()">
+                    <select class="input-size" id="member-runnerType" name="member-runnerType">
                         <option value="">-- Select Runner Type --</option>
                         <option value="Grab">Grab</option>
                         <option value="FoodPanda">Food Panda</option>

@@ -15,7 +15,7 @@ try {
     $data = $input['data'];
 
     // ✅ Updated to validate 'user_id' instead of 'id'
-    $requiredFields = ['user_id', 'role', 'firstName', 'lastName', 'username', 'email', 'phoneNumber', 'gender', 'address' ];
+    $requiredFields = ['user_id', 'role', 'firstName', 'lastName', 'username', 'email', 'phoneNumber', 'gender','runnerType', 'address' ];
     foreach ($requiredFields as $field) {
         if (empty($data[$field])) {
             echo json_encode(['success' => false, 'message' => "Missing required field: $field"]);
