@@ -146,7 +146,7 @@ async function updateOrderStatus(orderId) {
         body: JSON.stringify({
           ...order,
           status: nextStatus,
-          runnerId: JSON.parse(localStorage.getItem('user')).id // Assuming user ID is stored in localStorage
+          runnerId: JSON.parse(localStorage.getItem('user')).user_id // Assuming user ID is stored in localStorage
         })
       });
 
@@ -289,7 +289,7 @@ async function fetchRunnerOrders() {
         }
 
         const runnerType = user.runner_type;
-        const runnerId = user.id;
+        const runnerId = user.user_id;
 
         const response = await fetch(`http://127.0.0.1:8000/api/orders/runner?runner_type=${encodeURIComponent(runnerType)}&runner_id=${runnerId}`, {
             headers: {

@@ -260,7 +260,7 @@ class AuthHandler {
                 success: true,
                 token: data.token,
                 user: {
-                    id: data.user.id,
+                    user_id: data.user.user_id,
                     email: data.user.email,
                     username: data.user.name,
                     role: data.user.role,
@@ -308,7 +308,7 @@ class AuthHandler {
             success: true,
             message: 'Account created successfully',
             user: {
-                id: data.user.id,
+                user_id: data.user.user_id,
                 email: data.user.email,
                 username: data.user.name,
                 company: data.user.runner_type
