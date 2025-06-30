@@ -135,6 +135,11 @@ async function updateOrderStatus(orderId) {
     showLoading(`Updating Order #${orderId} to ${nextStatusInfo.text}...`);
 
     try {
+      console.log(JSON.stringify({
+          ...order,
+          status: nextStatus,
+          runnerId: JSON.parse(localStorage.getItem('user')).user_id // Assuming user ID is stored in localStorage
+        }));
       const token = localStorage.getItem('authToken');
       const response = await fetch(`http://127.0.0.1:8000/api/orders/${orderId}`, {
         method: 'PATCH',
@@ -146,7 +151,7 @@ async function updateOrderStatus(orderId) {
         body: JSON.stringify({
           ...order,
           status: nextStatus,
-          runnerId: JSON.parse(localStorage.getItem('user')).user_id // Assuming user ID is stored in localStorage
+          runner_id: JSON.parse(localStorage.getItem('user')).user_id // Assuming user ID is stored in localStorage
         })
       });
 
@@ -291,6 +296,8 @@ async function fetchRunnerOrders() {
         const runnerType = user.runner_type;
         const runnerId = user.user_id;
 
+
+        console.log(`http://127.0.0.1:8000/api/orders/runner?runner_type=${encodeURIComponent(runnerType)}&runner_id=${runnerId}`);
         const response = await fetch(`http://127.0.0.1:8000/api/orders/runner?runner_type=${encodeURIComponent(runnerType)}&runner_id=${runnerId}`, {
             headers: {
                 'Accept': 'application/json',
@@ -310,7 +317,7 @@ async function fetchRunnerOrders() {
             .filter(order => ['assigned', 'picked up', 'in transit'].includes(order.status))
             .map(order => ({
                 id: order.order_id,
-                customer: `Customer#${order.customer_id}`,
+                customer: `${order.customer_name}`,
                 address: order.delivery_address,
                 status: order.status,
                 time: new Date(order.created_at)
@@ -320,7 +327,7 @@ async function fetchRunnerOrders() {
             .filter(order => order.status === 'delivered')
             .map(order => ({
                 id: order.order_id,
-                customer: `Customer#${order.customer_id}`,
+                customer: `Customer#${order.customer_name}`,
                 address: order.delivery_address,
                 completedAt: new Date(order.updated_at),
                 status: 'completed'

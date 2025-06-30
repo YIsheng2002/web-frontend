@@ -156,7 +156,7 @@ $userId = $_SESSION['user']['user_id'];
                     console.log(`Added to cart: ${quantity} x ${productName} (${productPrice})`);
                     
                     // Show confirmed state with "Remove from Cart" button
-                    showConfirmedState(productCard, productName, productPrice, quantity, orderIndex);
+                    showConfirmedState(productCard, productName, productPrice, productPicture, quantity, orderIndex, productId);
                 });
 
                 // Cancel button functionality
@@ -175,7 +175,7 @@ $userId = $_SESSION['user']['user_id'];
              * @param {number} quantity - The quantity added to cart.
              * @param {number} orderIndex - The index of the item in the cartItems array.
              */
-            function showConfirmedState(productCard, productName, productPrice, quantity, orderIndex) {
+            function showConfirmedState(productCard, productName, productPrice, productPicture, quantity, orderIndex, productId){
                 productCard.classList.add('order-confirmed'); // Add a class for styling confirmed orders
                 productCard.querySelector('.product-info').innerHTML = `
                     <h3 class="product-name">${productName}</h3>
@@ -204,7 +204,7 @@ $userId = $_SESSION['user']['user_id'];
                     }
                     
                     // Reset the product card to its original "Add To Cart" state
-                    resetProductCard(productCard, productName, productPrice, productId);
+                    resetProductCard(productCard, productName, productPrice, productPicture, productId);
                 });
             }
 

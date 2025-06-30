@@ -137,6 +137,64 @@
   flex-shrink: 0;
 }
 
+/* Unicode icon styling for notifications */
+.unicode-icon {
+    font-size: 1.2em;
+    display: inline-block;
+    width: 1em;
+    text-align: center;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+/* Specific styling for notification status icons */
+.notification-icon .unicode-icon {
+    font-size: 1.5em;
+    width: 1.2em;
+    height: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Action button unicode icons */
+.action-btn .unicode-icon {
+    font-size: 1em;
+    width: 0.9em;
+    height: 0.9em;
+}
+
+/* Timestamp icon */
+.timestamp .unicode-icon {
+    font-size: 0.9em;
+    margin-right: 0.25em;
+}
+
+/* Status-specific colors (optional) */
+.notification-icon.status-preparing .unicode-icon {
+    filter: sepia(1) saturate(2) hue-rotate(200deg); /* Blue-ish */
+}
+
+.notification-icon.status-assigned .unicode-icon {
+    filter: sepia(1) saturate(2) hue-rotate(80deg); /* Green-ish */
+}
+
+.notification-icon.status-picked_up .unicode-icon {
+    filter: sepia(1) saturate(2) hue-rotate(240deg); /* Purple-ish */
+}
+
+.notification-icon.status-in_transit .unicode-icon {
+    filter: sepia(1) saturate(2) hue-rotate(30deg); /* Orange-ish */
+}
+
+.notification-icon.status-delivered .unicode-icon {
+    filter: sepia(1) saturate(2) hue-rotate(120deg); /* Green */
+}
+
+.notification-icon.status-cancelled .unicode-icon {
+    filter: sepia(1) saturate(2) hue-rotate(0deg); /* Red */
+}
+
 .status-preparing {
   background: linear-gradient(45deg, #f39c12, #e67e22);
 }

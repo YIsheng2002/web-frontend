@@ -9,9 +9,6 @@
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/dashboardStaff.css">
     <link rel="stylesheet" href="./assets/css/notifications.css">
-    <script src="./assets/javascript/mainStaff.js"></script>
-
-
 </head>
 
 <body>
@@ -91,7 +88,6 @@
                     <div>Name</div>
                     <div>Email</div>
                     <div>Role</div>
-                    <div>Gender</div>
                     <div>Phone Number</div>
                     <div>Address</div>
                     <div>Action</div>
@@ -116,15 +112,9 @@
                     </select>
                 </div>
 
-                <div class="form">
-                    <div class="form-group">
-                        <label for="member-firstName">First Name:</label>
-                        <input type="text" class="input-size" id="member-firstName" name="member-firstName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="member-lastName">Last Name:</label>
-                        <input type="text" class="input-size" id="member-lastName" name="member-lastName" required>
-                    </div>
+                <div class="form-group">
+                        <label for="member-fullName">Full Name:</label>
+                        <input type="text" class="input-size" id="member-fullName" name="member-fullName" required>
                 </div>
 
                 <div class="form-group">
@@ -160,22 +150,13 @@
                     <input type="address" class="input-size" id="member-address" name="member-address" required>
                 </div>
 
-                <div class='form-group'>
-                    <label for="member-gender">Gender:</label>
-                    <select class="input-size" id="memberGender" name="memberGender">
-                        <option value="">-- Select Gender --</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-
                 <!-- Runner Type (hidden by default) -->
                 <div class="form-group hidden" id="runnerTypeGroup">
                     <label for="member-runnerType">Runner Type:</label>
                     <select class="input-size" id="member-runnerType" name="member-runnerType">
                         <option value="">-- Select Runner Type --</option>
                         <option value="Grab">Grab</option>
-                        <option value="FoodPanda">Food Panda</option>
+                        <option value="food panda">Food Panda</option>
                     </select>
                 </div>
                 <button type="submit" class="add-membershipform-btn">Add Member</button>
@@ -197,15 +178,9 @@
                     </select>
                 </div>
 
-                <div class="form">
-                    <div class="form-group">
-                        <label for="member-firstName">First Name:</label>
-                        <input type="text" class="input-size" id="member-firstName" name="member-firstName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="member-lastName">Last Name:</label>
-                        <input type="text" class="input-size" id="member-lastName" name="member-lastName" required>
-                    </div>
+                <div class="form-group">
+                        <label for="member-fullName">Full Name:</label>
+                        <input type="text" class="input-size" id="member-fullName" name="member-fullName" required>
                 </div>
 
                 <div class="form-group">
@@ -230,15 +205,6 @@
                     <input type="address" class="input-size" id="member-address" name="member-address" required>
                 </div>
 
-                <div class='form-group'>
-                    <label for="member-gender">Gender:</label>
-                    <select class="input-size" id="memberGender" name="memberGender">
-                        <option value="">-- Select Gender --</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                </div>
-
                 <!-- Runner Type (hidden by default) -->
                 <div class="form-group hidden" id="runnerTypeGroupEdit">
                     <label for="member-runnerType">Runner Type:</label>
@@ -246,7 +212,7 @@
                     onchange="handleEditMemberTypeChange()">
                         <option value="">-- Select Runner Type --</option>
                         <option value="Grab">Grab</option>
-                        <option value="FoodPanda">Food Panda</option>
+                        <option value="food panda">Food Panda</option>
                     </select>
                 </div>
                 <button type="submit" class="edit-membershipform-btn">Edit Member</button>
@@ -322,8 +288,6 @@
                 <div class="filter-tabs">
                     <button class="filter-tab active" onclick="filterNotifications('all')">All</button>
                     <button class="filter-tab" onclick="filterNotifications('unread')">Unread</button>
-                    <button class="filter-tab" onclick="filterNotifications('preparing')">Preparing</button>
-                    <button class="filter-tab" onclick="filterNotifications('ready')">Ready</button>
                     <button class="filter-tab" onclick="filterNotifications('delivered')">Delivered</button>
                 </div>
 
@@ -333,9 +297,14 @@
             </div>
         </div>
 
-
+        <script>
+            console.log("Font Awesome test:");
+console.log("Clock icon exists:", document.querySelector('.fas.fa-clock'));
+console.log("Bicycle icon exists:", document.querySelector('.fas.fa-bicycle'));
+console.log("Truck icon exists:", document.querySelector('.fas.fa-truck'));
+        </script>
         <script src="./assets/javascript/dashboardStaff.js"></script>
-        <script src="./assets/js/notifications.js"></script>
+        <script src="./assets/javascript/notifications.js"></script>
 </body>
 
 </html>

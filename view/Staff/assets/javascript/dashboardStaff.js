@@ -1,6 +1,6 @@
 /*Initialization*/
 document.addEventListener('DOMContentLoaded', function () {
-  fetchMembers();
+  fetchMembers('customer'); // Fetch all members by default
   fetchOrders();
 
   const addMemberForm = document.getElementById('addMemberForm');
@@ -125,14 +125,13 @@ function renderMembers(members) {
 
     row.innerHTML = `
     <div class="member-profile">
-    <img src="../../assets/images/avatar-${member.gender.toLowerCase()}.png" class="member-avatar">
+    <!--<img src="" class="member-avatar">-->
     </div>
-      <div class="member-name"> ${member.firstName} ${member.lastName}</div>
+      <div class="member-name"> ${member.full_name}</div>
       <div class="member-email">${member.email}</div>
       <div class="member-role">${member.role}</div>
-      <div class="member-gender">${member.gender}</div>
-      <div class="member-phone">${member.phonenumber}</div>
-      <div class="member-address">${member.address || 'N/A'}</div>
+      <div class="member-phone">${member.phone_number || '-'}</div>
+      <div class="member-address">${member.address || '-'}</div>
     `;
 
     // Append buttons
@@ -149,8 +148,9 @@ function renderMembers(members) {
 /* member Handling */
 async function fetchMembers(role = '') {
   try {
-    const response = await fetch(`http://localhost/orderManagementSystemFrontend/view/Staff/backend-api/getMembers.php${role ? `?role=${role}` : ''}`);
+    const response = await fetch(`http://localhost/project/view/Staff/backend-api/getMembers.php${role ? `?role=${role}` : ''}`);
     const data = await response.json();
+    console.log('Fetch Members API response:', data);
     if (data.success) {
       renderMembers(data.data);
     } else {
@@ -166,12 +166,10 @@ async function fetchMembers(role = '') {
 function validateEditMemberForm(formData) {
   const errors = [];
 
-  if (!formData.firstName.trim()) errors.push('First Name is required.');
-  if (!formData.lastName.trim()) errors.push('Last Name is required.');
+  if (!formData.full_name.trim()) errors.push('Full Name is required.');
   if (!formData.username.trim()) errors.push('Username is required.');
   if (!formData.email.trim() || !formData.email.includes('@')) errors.push('Valid Email is required.');
   if (!formData.phoneNumber.trim()) errors.push('Phone Number is required.');
-  if (!formData.gender) errors.push('Gender is required.');
   if (!formData.address.trim()) errors.push('Address is required.');
 
 
@@ -186,7 +184,7 @@ async function deleteMember(memberId) {
 
   if (confirm('Press Ok to confirm delete.')) {
     try {
-      const response = await fetch('http://localhost/orderManagementSystemFrontend/view/Staff/backend-api/deleteMember.php', {
+      const response = await fetch('http://localhost/project/view/Staff/backend-api/deleteMember.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -199,7 +197,7 @@ async function deleteMember(memberId) {
 
       if (result.success) {
         alert("Delete successful, member has been deleted.");
-        fetchMembers(); // Refresh the list
+        fetchMembers('customer'); // Refresh the list
       } else {
         alert("Delete failed: " + result.message);
       }
@@ -222,14 +220,12 @@ async function handleAddMember(event) {
   // Collect form data
   const formData = {
     role: document.getElementById('memberType').value,
-    firstName: document.getElementById('member-firstName').value,
-    lastName: document.getElementById('member-lastName').value,
+    full_name: document.getElementById('member-fullName').value,
     username: document.getElementById('member-username').value,
     email: document.getElementById('member-email').value,
     password: document.getElementById('member-password').value,
     repassword: document.getElementById('member-repassword').value,
     phoneNumber: document.getElementById('member-phonenumber').value,
-    gender: document.getElementById('memberGender').value,
     address: document.getElementById('member-address').value, // New field for address
     runnerType: document.getElementById('member-runnerType').value
   };
@@ -251,7 +247,7 @@ async function handleAddMember(event) {
 
     if (response.success) {
       Utils.showNotification('Member added successfully!', 'success');
-      fetchMembers(); // Refresh list
+      fetchMembers('customer'); // Refresh list
       showMembership(new Event('click')); // Navigate to member list
     } else {
       throw new Error(response.message || 'Failed to add member');
@@ -270,15 +266,13 @@ function validateAddMemberForm(formData) {
   const errors = [];
 
   if (!formData.role) errors.push('Member Type is required.');
-  if (!formData.firstName.trim()) errors.push('First Name is required.');
-  if (!formData.lastName.trim()) errors.push('Last Name is required.');
+  if (!formData.full_name.trim()) errors.push('Full Name is required.');
   if (!formData.username.trim()) errors.push('Username is required.');
   if (!formData.email.trim() || !formData.email.includes('@')) errors.push('Valid Email is required.');
   if (!formData.password.trim()) errors.push('Password is required.');
   if (!formData.repassword.trim()) errors.push('Re-enter password.');
   if (formData.password !== formData.repassword) errors.push('Passwords do not match.');
   if (!formData.phoneNumber.trim()) errors.push('Phone Number is required.');
-  if (!formData.gender) errors.push('Gender is required.');
   if (!formData.address.trim()) errors.push('Address is required.');
 
   // Only validate runnerType if role is "runner"
@@ -345,23 +339,20 @@ function handleEditButtonClick(event, memberData) {
   // Get the form elements in the edit form (note: they might have same IDs, so we need to be specific)
 
   const role = editFormFields.querySelector('#memberType');
-  const firstNameField = editFormFields.querySelector('#member-firstName');
-  const lastNameField = editFormFields.querySelector('#member-lastName');
+  const fullNameField = editFormFields.querySelector('#member-fullName');
   const usernameField = editFormFields.querySelector('#member-username');
   const emailField = editFormFields.querySelector('#member-email');
   const phoneField = editFormFields.querySelector('#member-phonenumber');
-  const genderField = editFormFields.querySelector('#memberGender');
   const runnerTypeField = editFormFields.querySelector('#member-runnerType');
   const addressField = editFormFields.querySelector('#member-address');
 
   // Populate the fields
   if (role) role.value = memberData.role || ''; // Default to 'staff' if not provided
-  if (firstNameField) firstNameField.value = memberData.firstName || '';
-  if (lastNameField) lastNameField.value = memberData.lastName || '';
+
+  if (fullNameField) fullNameField.value = memberData.full_name || '';
   if (usernameField) usernameField.value = memberData.username || '';
   if (emailField) emailField.value = memberData.email || '';
-  if (phoneField) phoneField.value = memberData.phonenumber || '';
-  if (genderField) genderField.value = memberData.gender || '';
+  if (phoneField) phoneField.value = memberData.phone_number || '';
   if (runnerTypeField) runnerTypeField.value = memberData.runner_type || '';
   if (addressField) addressField.value = memberData.address || ''; // Default to empty if not provided     
 
@@ -388,12 +379,10 @@ async function editMember() {
   const formData = {
     user_id: memberId,
     role: editFormFields.querySelector('#memberType').value,
-    firstName: editFormFields.querySelector('#member-firstName').value,
-    lastName: editFormFields.querySelector('#member-lastName').value,
+    full_name: editFormFields.querySelector('#member-fullName').value,
     username: editFormFields.querySelector('#member-username').value,
     email: editFormFields.querySelector('#member-email').value,
     phoneNumber: editFormFields.querySelector('#member-phonenumber').value,
-    gender: editFormFields.querySelector('#memberGender').value,
     runnerType: editFormFields.querySelector('#member-runnerType').value,
     address: editFormFields.querySelector('#member-address').value // New field for address
   };
@@ -407,7 +396,7 @@ async function editMember() {
 
   if (confirm('Press Ok to confirm edit.')) {
     try {
-      const response = await fetch('http://localhost/orderManagementSystemFrontend/view/Staff/backend-api/editMember.php', {
+      const response = await fetch('http://localhost/project/view/Staff/backend-api/editMember.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -425,7 +414,7 @@ async function editMember() {
         alert("Edit successful, Member's details have been updated.");
 
         // Refresh the members list
-        fetchMembers();
+        fetchMembers('customer');
 
         // Navigate back to the members list
         showMembership(new Event('click'));
@@ -533,7 +522,7 @@ function hideStatusIndicator(dropdown) {
 
 async function addMemberApi(formData) {
   try {
-    const response = await fetch('http://localhost/orderManagementSystemFrontend/view/Staff/backend-api/addMembers.php', {
+    const response = await fetch('http://localhost/project/view/Staff/backend-api/addMembers.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -621,7 +610,7 @@ function formatDate(date) {
 
 async function fetchOrders(status = '', tabId = 'new-orders') {
   try {
-    const response = await fetch(`http://localhost/orderManagementSystemFrontend/view/Staff/backend-api/getOrders.php${status ? `?status=${status}` : ''}`);
+    const response = await fetch(`http://localhost/project/view/Staff/backend-api/getOrders.php${status ? `?status=${status}` : ''}`);
     const data = await response.json();
     if (data.success) {
       if (tabId === 'new-orders') {
@@ -664,7 +653,7 @@ function renderNewOrders(orderList) {
     row.className = 'order-row highlighted';
     row.innerHTML = `
       <div class="order-id-badge">Order#${order.order_id}</div>
-      <div>${order.customer_first_name} ${order.customer_last_name}</div>
+      <div>${order.customer_full_name}</div>
       <div>${order.delivery_address || 'N/A'}</div>
       <div class="buttons-arrangement">
       <button class="accept-btn" onclick="acceptOrder(${order.order_id})">Accept</button>
@@ -676,7 +665,7 @@ function renderNewOrders(orderList) {
 }
 
 function acceptOrder(orderId) {
-  fetch('http://localhost/orderManagementSystemFrontend/view/Staff/backend-api/updateOrderStatus.php', {
+  fetch('http://localhost/project/view/Staff/backend-api/updateOrderStatus.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -743,7 +732,7 @@ async function renderCurrentOrders(orderList) {
 
     row.innerHTML = `
       <div class="order-id-badge">Order#${order.order_id}</div>
-      <div>${order.customer_first_name} ${order.customer_last_name}</div>
+      <div>${order.customer_full_name}</div>
       <div>${order.delivery_address || 'N/A'}</div>
       <div class="runner-dropdown">
         <select ${isUnassigned ? '' : 'disabled'}>
@@ -774,7 +763,7 @@ async function renderCurrentOrders(orderList) {
 
 async function fetchAvailableRunners() {
   try {
-    const response = await fetch('http://localhost/orderManagementSystemFrontend/view/Staff/backend-api/getRunner.php');
+    const response = await fetch('http://localhost/project/view/Staff/backend-api/getRunner.php');
     const result = await response.json();
     return result.data || [];
   } catch (error) {
@@ -785,7 +774,7 @@ async function fetchAvailableRunners() {
 
 async function assignRunner(orderId, runnerId, runnerType) {
   try {
-    const response = await fetch('http://localhost/orderManagementSystemFrontend/view/Staff/backend-api/assignRunner.php', {
+    const response = await fetch('http://localhost/project/view/Staff/backend-api/assignRunner.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ order_id: orderId, runner_id: runnerId, runner_type: runnerType })
@@ -830,7 +819,7 @@ function renderCompletedOrders(orderList) {
     row.className = 'order-row completed';
     row.innerHTML = `
       <div class="order-id-badge">Order#${order.order_id}</div>
-      <div>${order.customer_first_name} ${order.customer_last_name}</div>
+      <div>${order.customer_full_name}</div>
       <div>${order.completed_at || '-'}</div>
       <div><span class="order-status ${order.status.toLowerCase()}">${order.status}</span></div>`;
     container.appendChild(row);
@@ -847,8 +836,3 @@ function addOrderItem(orderData) {
     </div>`;
   orderList.insertAdjacentHTML('beforeend', orderHTML);
 }
-
-
-
-
-

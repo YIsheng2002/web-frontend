@@ -21,28 +21,31 @@
 
     <div class="container">
         <div class="notifications-container">
-            <div class="notifications-header">
-                <div class="notifications-title">
-                    <i class="fas fa-bell"></i>
-                    Delivery Notifications
-                </div>
-                <button class="mark-all-read" onclick="markAllAsRead()">
-                    <i class="fas fa-check-double"></i> Mark All Read
-                </button>
-            </div>
-
-            <div class="filter-tabs">
-                <button class="filter-tab active" onclick="filterNotifications('all')">All</button>
-                <button class="filter-tab" onclick="filterNotifications('unread')">Unread</button>
-                <button class="filter-tab" onclick="filterNotifications('preparing')">Preparing</button>
-                <button class="filter-tab" onclick="filterNotifications('ready')">Ready</button>
-                <button class="filter-tab" onclick="filterNotifications('delivered')">Delivered</button>
-            </div>
-
-            <div class="notifications-list" id="notifications-list">
-                <!-- Notifications will be loaded here -->
-            </div>
+    <div class="notifications-header">
+        <div class="notifications-title">
+            <i class="fas fa-bell"></i>
+            Delivery Notifications
         </div>
+        <div class="stats-section">
+            <span>Unread: <span id="unread-count">0</span></span>
+            <span>Total: <span id="total-count">0</span></span>
+        </div>
+        <button class="mark-all-read" onclick="markAllAsRead()">
+            <i class="fas fa-check-double"></i> Mark All Read
+        </button>
+    </div>
+
+    <div class="filter-tabs">
+        <button class="filter-tab active" onclick="filterNotifications('all')">All</button>
+        <button class="filter-tab" onclick="filterNotifications('unread')">Unread</button>
+        <button class="filter-tab" onclick="filterNotifications('delivered')">Delivered</button>
+    </div>
+
+    <div class="notifications-list" id="notifications-list">
+        <!-- Notifications will be loaded here -->
+        <!-- Don't put the span elements here! -->
+    </div>
+</div>
     </div>
 
 

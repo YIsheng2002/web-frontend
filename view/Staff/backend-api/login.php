@@ -1,4 +1,18 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+
+// Allow specific HTTP methods
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+
+// Allow specific headers
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+// Handle preflight (OPTIONS) requests and exit early
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header('Content-Type: application/json');
@@ -18,7 +32,7 @@ $password = $data['password'] ?? '';
 
 try {
     // Find user by email
-    $stmt = $conn->prepare("SELECT *, CONCAT(firstName, ' ', lastName) AS fullname FROM user WHERE email = ?");
+    $stmt = $conn->prepare("SELECT * FROM user WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -30,19 +44,6 @@ try {
     }
 
     if ($user) {
-        // DEBUG: Log stored and entered passwords
-        error_log("✅ Email found: " . $user['email']);
-        error_log("🔐 Stored hash: " . $user['password']);
-        error_log("🔑 Entered password: " . $password);
-        error_log("user_id found: " . $user['user_id']);
-        error_log("username: " . $user['username']);
-        error_log("fullname: " . $user['fullname']);
-        error_log("email: " . $user['email']);
-        error_log("phonenumber: " . $user['phonenumber']);
-        error_log("gender: " . $user['gender']);
-        error_log("role: " . $user['role']);
-        error_log("runner_type: " . $user['runner_type']);
-
 
         if (password_verify($password, $user['password'])) {
             // Login successful
@@ -52,10 +53,9 @@ try {
                 'user' => [
                     'id' => $user['user_id'],
                     'username' => $user['username'],
-                    'fullname' => $user['fullname'],
+                    'fullname' => $user['full_name'],
                     'email' => $user['email'],
-                    'phonenumber' => $user['phonenumber'],
-                    'gender' => $user['gender'],  // ✅ Add gender here
+                    'phonenumber' => $user['phone_number'],
                     'role' => $user['role'],
                     'runner_type' => $user['runner_type']
                 ]

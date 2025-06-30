@@ -273,7 +273,11 @@ class AuthHandler {
 
     async signupApi(signupData) {
         try {
-            const response = await fetch('http://localhost/orderManagementSystemFrontend/view/Staff/backend-api/register.php', {
+            console.log(JSON.stringify({
+                    action: 'signup',
+                    data: signupData
+                }));
+            const response = await fetch('http://localhost/project/view/Staff/backend-api/register.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -296,7 +300,7 @@ class AuthHandler {
 
     async loginApi(loginData) {
         try {
-            const response = await fetch('http://localhost/orderManagementSystemFrontend/view/Staff/backend-api/login.php', {
+            const response = await fetch('http://localhost/project/view/Staff/backend-api/login.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -309,7 +313,7 @@ class AuthHandler {
             });
             
             const result = await response.json()
-            console.log('Signup API response:', result);
+            console.log('login API response:', result);
             return result;
         } catch (error) {
             console.error('Login API error:', error);
