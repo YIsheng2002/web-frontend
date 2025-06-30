@@ -162,9 +162,14 @@
     font-weight: 500;
 }
 
-.status-waiting {
-    background: #fce4ec;
+.status-ready {
+    background: #ff6c9d;
     color:#c2185b;
+}
+
+.status-pickup {
+    background: #e8f5e9;
+    color: #43a047;
 }
 
 .status-delivering {

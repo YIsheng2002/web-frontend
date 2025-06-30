@@ -43,10 +43,10 @@ class AuthHandler {
         // Clear previous errors
         Utils.clearFormErrors(form);
         
-        // Validate form
-        if (!Utils.validateForm(form)) {
-            return;
-        }
+        // //Validate form
+        // if (!Utils.validateForm(form)) {
+        //     return;
+        // }
         
         const formData = new FormData(form);
         const loginData = {
@@ -91,6 +91,7 @@ class AuthHandler {
             submitButton.textContent = originalText;
         }
     }
+
     
     async handleSignup(event) {
         event.preventDefault();
@@ -214,60 +215,113 @@ class AuthHandler {
         return window.rememberedEmail || null;
     }
     
-    // Simulate API calls - to be replace these with actual API endpoints
+    // Simulate API calls
     async simulateLogin(loginData) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Dummy authentication logic
-        if (loginData.email.includes('@') && loginData.password.length >= 8) {
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: loginData.email,
+                    password: loginData.password
+                })
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                return {
+                    success: false,
+                    message: error.message || 'Login failed'
+                };
+            }
+
+            const data = await response.json();
+
+            console.log('API Response Data:', data);
+
+            // ✅ Check if role is 'runner'
+            if (data.user.role !== 'runner') {
+                return {
+                    success: false,
+                    message: 'Access denied: Only runners can log in.'
+                };
+            }
+
+            // Optional: Save token if needed
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            SessionManager.setToken(data.token);
+            SessionManager.setUser(data.user);
+
             return {
                 success: true,
-                token: 'mock-jwt-token-' + Date.now(),
+                token: data.token,
                 user: {
-                    id: 2,
-                    email: loginData.email,
-                    username: loginData.email.split('@')[0],
-                    role: 'runner'
+                    id: data.user.id,
+                    email: data.user.email,
+                    username: data.user.name,
+                    role: data.user.role,
+                    company: data.user.runner_type  // mapped to runner_type
                 },
                 redirect: 'dashboard.html'
             };
-        } else {
+
+        } catch (err) {
             return {
                 success: false,
-                message: 'Invalid email or password'
+                message: 'An error occurred while connecting to the server.'
             };
         }
     }
+
     
     async simulateSignup(signupData) {
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // Mock validation
-        if (signupData.email === 'existing@example.com') {
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                email: signupData.email,
+                password: signupData.password,
+                name: signupData.username,
+                role: 'runner',
+                runner_type: signupData.company  // mapped to runner_type
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
             return {
                 success: false,
-                message: 'Email already exists'
+                message: data.message || 'Registration failed'
             };
         }
-        
-        if (signupData.username.length < 3) {
-            return {
-                success: false,
-                message: 'Username must be at least 3 characters long'
-            };
-        }
-        
+
         return {
             success: true,
             message: 'Account created successfully',
             user: {
-                id: Date.now(),
-                email: signupData.email,
-                username: signupData.username,
-                company: signupData.company
+                id: data.user.id,
+                email: data.user.email,
+                username: data.user.name,
+                company: data.user.runner_type
             }
         };
+
+    } catch (error) {
+        return {
+            success: false,
+            message: 'Network or server error'
+        };
     }
+}
 }
 
 // Forgot password handler

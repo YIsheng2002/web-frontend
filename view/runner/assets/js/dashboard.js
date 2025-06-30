@@ -1,93 +1,14 @@
-// Dummy data for orders
-const dummyCurrentOrders = [
-  {
-    id: "21345",
-    customer: "Michelle",
-    address: "100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal",
-    status: "ready",
-    time: new Date(Date.now() - 1000 * 60 * 15) // 15 minutes ago
-  },
-  {
-    id: "21346",
-    customer: "Marvin McKinney",
-    address: "25, Jalan Melaka Raya, Taman Indah, 75000 Melaka",
-    status: "ready",
-    time: new Date(Date.now() - 1000 * 60 * 30) // 30 minutes ago
-  },
-  {
-    id: "21347",
-    customer: "Sarah Connor",
-    address: "45, Jalan Sultan, Bandar Hilir, 75000 Melaka",
-    status: "ready",
-    time: new Date(Date.now() - 1000 * 60 * 5) // 5 minutes ago
-  },
-  {
-    id: "21348",
-    customer: "John Doe",
-    address: "12, Jalan Hang Tuah, Taman Merdeka, 75300 Melaka",
-    status: "ready",
-    time: new Date(Date.now() - 1000 * 60 * 45) // 45 minutes ago
-  },
-  {
-    id: "21349",
-    customer: "Emily Wong",
-    address: "88, Jalan Bunga Raya, Taman Sejahtera, 75450 Melaka",
-    status: "delivering",
-    time: new Date(Date.now() - 1000 * 60 * 10) // 10 minutes ago
-  },
-  {
-    id: "21350",
-    customer: "Ahmad Rahman",
-    address: "33, Jalan Mawar, Taman Damai, 75200 Melaka",
-    status: "delivering",
-    time: new Date(Date.now() - 1000 * 60 * 20) // 20 minutes ago
-  }
-];
 
-const dummyCompletedOrders = [
-  {
-    id: "21340",
-    customer: "Lisa Park",
-    address: "67, Jalan Tun Razak, Bandar Baru, 75000 Melaka",
-    completedAt: new Date(Date.now() - 1000 * 60 * 60 * 2), // 2 hours ago
-    status: "completed"
-  },
-  {
-    id: "21341",
-    customer: "David Kim",
-    address: "22, Jalan Laksamana, Taman Seri, 75300 Melaka",
-    completedAt: new Date(Date.now() - 1000 * 60 * 60 * 1), // 1 hour ago
-    status: "completed"
-  },
-  {
-    id: "21342",
-    customer: "Maria Santos",
-    address: "55, Jalan Bendahara, Kampung Jawa, 75200 Melaka",
-    completedAt: new Date(Date.now() - 1000 * 60 * 60 * 3), // 3 hours ago
-    status: "completed"
-  },
-  {
-    id: "21343",
-    customer: "Robert Chen",
-    address: "99, Jalan Portugis, Bandar Hilir, 75000 Melaka",
-    completedAt: new Date(Date.now() - 1000 * 60 * 60 * 4), // 4 hours ago
-    status: "completed"
-  },
-  {
-    id: "21344",
-    customer: "Jennifer Lopez",
-    address: "11, Jalan Kota, Taman Melaka Raya, 75000 Melaka",
-    completedAt: new Date(Date.now() - 1000 * 60 * 60 * 5), // 5 hours ago
-    status: "completed"
-  }
-];
+let currentOrders = [];
+let completedOrders = [];
 
 // Function to get status display info
 function getStatusInfo(status) {
   const statusMap = {
-    'ready': { class: 'status-ready', text: 'Ready', button: 'Mark Delivering' },
-    'delivering': { class: 'status-delivering', text: 'Delivering', button: 'Mark Completed' },
-    'completed': { class: 'status-completed', text: 'Completed', button: null }
+    'assigned': { class: 'status-ready', text: 'Assigned', button: 'Mark Picked Up' },
+    'picked up': { class: 'status-pickup', text: 'Picked Up', button: 'Mark In Transit' },
+    'in transit': { class: 'status-delivering', text: 'In Transit', button: 'Mark Delivered' },
+    'delivered': { class: 'status-completed', text: 'Delivered', button: null }
   };
   return statusMap[status] || { class: 'status-waiting', text: status, button: 'Update' };
 }
@@ -116,8 +37,10 @@ function formatDate(date) {
 // Function to sort current orders (non-waiting orders first)
 function sortCurrentOrders(orders) {
   const statusPriority = {
-    'ready': 1,
-    'delivering': 2,
+    'assigned': 1,
+    'picked up': 2,
+    'in transit': 3,
+    'delivered': 4
   };
   
   return orders.sort((a, b) => {
@@ -136,7 +59,7 @@ function sortCurrentOrders(orders) {
 // Function to render current orders
 function renderCurrentOrders() {
   const container = document.querySelector('#current-orders .orders-container');
-  const sortedOrders = sortCurrentOrders([...dummyCurrentOrders]);
+  const sortedOrders = sortCurrentOrders([...currentOrders]);
   
   // Clear existing orders (keep header)
   const header = container.querySelector('.orders-header');
@@ -145,7 +68,7 @@ function renderCurrentOrders() {
   
   sortedOrders.forEach((order, index) => {
     const statusInfo = getStatusInfo(order.status);
-    const isHighlighted = order.status !== 'delivering';
+    const isHighlighted = order.status == 'assigned' || order.status == 'picked up';
     
     const orderRow = document.createElement('div');
     orderRow.className = `order-row ${isHighlighted ? 'highlighted' : ''}`;
@@ -155,7 +78,7 @@ function renderCurrentOrders() {
       <div class="customer-name">${order.customer}</div>
       <div class="customer-address">${order.address}</div>
       <div class="status-tag ${statusInfo.class}">${statusInfo.text}</div>
-      ${statusInfo.button ? `<button class="accept-btn" onclick="updateOrderStatus('${order.id}')">${statusInfo.button}</button>` : '<div></div>'}
+      ${statusInfo.button ? `<button class="accept-btn" onclick="updateOrderStatus(${order.id})">${statusInfo.button}</button>` : '<div></div>'}
     `;
     
     container.appendChild(orderRow);
@@ -172,7 +95,7 @@ function renderCompletedOrders() {
   container.appendChild(header);
   
   // Sort by completion time (most recent first)
-  const sortedOrders = [...dummyCompletedOrders].sort((a, b) => b.completedAt - a.completedAt);
+  const sortedOrders = [...completedOrders].sort((a, b) => b.completedAt - a.completedAt);
   
   sortedOrders.forEach((order, index) => {
     const orderRow = document.createElement('div');
@@ -190,50 +113,59 @@ function renderCompletedOrders() {
 }
 
 // Updated order status management
-function updateOrderStatus(orderId) {
-  const order = dummyCurrentOrders.find(o => o.id === orderId);
+async function updateOrderStatus(orderId) {
+  const order = currentOrders.find(o => o.id == orderId);
   if (!order) return;
-  
+
   const statusFlow = {
-    'ready': 'delivering',
-    'delivering': 'completed'
+    'assigned': 'picked up',
+    'picked up': 'in transit',
+    'in transit': 'delivered'
   };
-  
+
   const currentStatus = order.status;
   const nextStatus = statusFlow[currentStatus];
-  
+
   if (!nextStatus) return;
-  
+
   const statusInfo = getStatusInfo(currentStatus);
   const nextStatusInfo = getStatusInfo(nextStatus);
-  
+
   if (confirm(`${statusInfo.button} for Order #${orderId}?`)) {
-    if (nextStatus === 'completed') {
-      // Move to completed orders
-      const completedOrder = {
-        id: order.id,
-        customer: order.customer,
-        address: order.address,
-        completedAt: new Date(),
-        status: 'completed'
-      };
-      
-      dummyCompletedOrders.unshift(completedOrder);
-      
-      // Remove from current orders
-      const orderIndex = dummyCurrentOrders.findIndex(o => o.id === orderId);
-      if (orderIndex > -1) {
-        dummyCurrentOrders.splice(orderIndex, 1);
+    showLoading(`Updating Order #${orderId} to ${nextStatusInfo.text}...`);
+
+    try {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`http://127.0.0.1:8000/api/orders/${orderId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          ...order,
+          status: nextStatus,
+          runnerId: JSON.parse(localStorage.getItem('user')).id // Assuming user ID is stored in localStorage
+        })
+      });
+
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.message || 'Failed to update status');
       }
-      
-      alert(`Order #${orderId} completed successfully!`);
+
+      const updatedOrder = await response.json();
+      order.status = updatedOrder.status;
+
+      alert(`Order #${orderId} updated to ${nextStatusInfo.text}`);
       renderCurrentOrders();
-      
-    } else {
-      // Update status
-      order.status = nextStatus;
-      alert(`Order #${orderId} status updated to ${nextStatusInfo.text}!`);
-      renderCurrentOrders();
+
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to update order: ' + error.message);
+    } finally {
+      hideLoading();
     }
   }
 }
@@ -298,8 +230,10 @@ function logout() {
   if (confirm("Are you sure you want to logout?")) {
     // Add logout logic here
     alert("Logged out successfully!");
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("user");
     // Redirect to login page
-    // window.location.href = '/login.html';
+    window.location.href = '/login.html';
   }
   toggleDropdown();
 }
@@ -334,37 +268,75 @@ function simulateNewOrder() {
   }, 3000);
 }
 
+function showLoading(message = 'Processing...') {
+  const spinner = document.getElementById('loading-spinner');
+  spinner.textContent = message;
+  spinner.style.display = 'block';
+}
+
+function hideLoading() {
+  const spinner = document.getElementById('loading-spinner');
+  spinner.style.display = 'none';
+}
+
+async function fetchRunnerOrders() {
+    try {
+        const user = JSON.parse(localStorage.getItem('user'));
+        const token = localStorage.getItem('authToken');
+
+        if (!user || !token || user.role !== 'runner') {
+            throw new Error('Runner not logged in or missing token.');
+        }
+
+        const runnerType = user.runner_type;
+        const runnerId = user.id;
+
+        const response = await fetch(`http://127.0.0.1:8000/api/orders/runner?runner_type=${encodeURIComponent(runnerType)}&runner_id=${runnerId}`, {
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to fetch runner orders.');
+        }
+
+        const orders = await response.json();
+
+        // Process orders into two arrays
+        currentOrders = orders
+            .filter(order => ['assigned', 'picked up', 'in transit'].includes(order.status))
+            .map(order => ({
+                id: order.order_id,
+                customer: `Customer#${order.customer_id}`,
+                address: order.delivery_address,
+                status: order.status,
+                time: new Date(order.created_at)
+            }));
+
+        completedOrders = orders
+            .filter(order => order.status === 'delivered')
+            .map(order => ({
+                id: order.order_id,
+                customer: `Customer#${order.customer_id}`,
+                address: order.delivery_address,
+                completedAt: new Date(order.updated_at),
+                status: 'completed'
+            }));
+
+        renderCurrentOrders();
+        renderCompletedOrders();
+
+    } catch (error) {
+        console.error('Error fetching runner orders:', error.message);
+    }
+}
+
 // Initialize
 document.addEventListener("DOMContentLoaded", function () {
   console.log("SUP TULANG ZZ Order Management System loaded");
-  
-  // Load initial data
-  renderCurrentOrders();
-  renderCompletedOrders();
-  
-  // Add CSS for new status classes
-  const style = document.createElement('style');
-  style.textContent = `
-    .status-ready {
-      background: #3498db;
-      color: white;
-    }
-    
-    .status-completed {
-      background: #96ff96;
-      color: #214b17;
-    }
-    
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-  `;
-  document.head.appendChild(style);
+
+  fetchRunnerOrders(); // Will call renderCurrentOrders and renderCompletedOrders internally
 });
