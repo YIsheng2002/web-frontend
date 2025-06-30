@@ -34,7 +34,7 @@ $userId = $_SESSION['user']['user_id'];
     <main class="main-content">
         <div class="container">
             <!-- Order Header -->
-            <h1 class="order-title">Order Cart #12456</h1>
+            <h1 class="order-title">Order Cart</h1>
 
             <!-- Cart Items -->
             <div class="cart-items"></div>
