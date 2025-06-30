@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUP TULANG ZZ</title>
+    <link rel="stylesheet" href="../Staff/assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="./assets/css/dashboardStaff.css">
+    <link rel="stylesheet" href="./assets/css/notifications.css">
+    <script src="./assets/javascript/mainStaff.js"></script>
+
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <img src="../../assets/images/logo.png" alt="Logo" class="logo">
+            <h1 class="brand-name">SUP TULANG ZZ</h1>
+        </div>
+
+        <div class="user-menu">
+            <div class="user-avatar" onclick="toggleDropdown()">
+                👤
+            </div>
+            <div class="dropdown-menu" id="userDropdown">
+                <a href="#" class="dropdown-item danger" onclick="logout()">
+                    🚪 Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class=" dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link active" onclick="showMembership(event)">
+                        <div class="sidebar-icon">👥</div>
+                        <span class="sidebar-text">Memberships</span>
+                        <span class="sidebar-arrow">›</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" onclick="showOrders(event)">
+                        <div class="sidebar-icon">📋</div>
+                        <span class="sidebar-text">Orders</span>
+                        <span class="sidebar-arrow">›</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" onclick="showNotifications(event)">
+                        <div class="sidebar-icon">🔔</div>
+                        <span class="sidebar-text">Notifications</span>
+                        <span class="sidebar-arrow">›</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content membership page -->
+        <div class="main-content active" id="membership">
+            <div class="membership-header">
+                <h3>Memberships</h3>
+                <button class="add-membership-btn" onclick="showAddMemberForm(event)">Add Member</button>
+            </div>
+
+            <div class="filter-search-function">
+                <div class="dropdown-filter">
+                    <button onclick="selectFilters()" class="filter-btn">Filter</button>
+                    <div id="filterDropdown" class="dropdown-content">
+                        <a href="#" onclick="filterByStatus('olderst-member')">Olderst Member</a>
+                        <a href="#" onclick="filterByStatus('newest-member')">Newest Member</a>
+                        <a href="#" onclick="filterByStatus('highest-total-order')">Higest Orders</a>
+                        <a href="#" onclick="filterByStatus('lowest-total-order')">Lowest Orders</a>
+                    </div>
+                </div>
+                <div class="search-bar-members">
+                    <input type="text" id="search-input" class="search-input" placeholder="Search Members"
+                        onkeyup="searchMembership()">
+                    <button class="search-btn" onclick="searchMembership()">🔍</button>
+                </div>
+            </div>
+
+            <div class="members-container">
+                <div class="members-header">
+                    <div>Name</div>
+                    <div>Email</div>
+                    <div>Gender</div>
+                    <div>Action</div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content add member form -->
+        <div class="main-content" id="membershipform">
+            <h3>Add Member</h3>
+            <form id="addMemberForm">
+                <!-- Member Type Dropdown-->
+                <div class='form-group'>
+                    <label for="member-Type">Member Type:</label>
+                    <select class="input-size" id="memberType" name="memberType" required
+                        onchange="handleMemberTypeChange()">
+                        <option value="">-- Select Member Type --</option>
+                        <option value="staff">Staff</option>
+                        <option value="runner">Runner</option>
+                        <option value="customer">Customer</option>
+                    </select>
+                </div>
+
+
+                <div class="form">
+                    <div class="form-group">
+                        <label for="member-firstName">First Name:</label>
+                        <input type="text" class="input-size" id="member-firstName" name="member-firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="member-lastName">Last Name:</label>
+                        <input type="text" class="input-size" id="member-lastName" name="member-lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="member-username">Username:</label>
+                    <input type="username" class="input-size" id="member-username" name="member-username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="member-email">Email:</label>
+                    <input type="email" class="input-size" id="member-email" name="member-email" required>
+                </div>
+
+                <div class="form">
+                    <div class="form-group">
+                        <label for="member-password">Password:</label>
+                        <input type="password" class="input-size" id="member-password" name="member-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="member-repassword">Re-enter Password:</label>
+                        <input type="password" class="input-size" id="member-repassword" name="member-repassword"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="member-phonenumber">Phone Number:</label>
+                    <input type="phone-number" class="input-size" id="member-phonenumber" name="member-phonenumber"
+                        required>
+                </div>
+
+                <div class='form-group'>
+                    <label for="member-gender">Member Type:</label>
+                    <select class="input-size" id="memberGender" name="memberGender">
+                        <option value="">-- Select Gender --</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+
+                <!-- Runner Type (hidden by default) -->
+                <div class="form-group hidden" id="runnerTypeGroup">
+                    <label for="member-runnerType">Runner Type:</label>
+                    <select class="input-size" id="member-runnerType" name="member-runnerType">
+                        <option value="">-- Select Runner Type --</option>
+                        <option value="Grab">Grab</option>
+                        <option value="FoodPanda">Food Panda</option>
+                    </select>
+                </div>
+                <button type="submit" class="add-membershipform-btn">Add Member</button>
+            </form>
+        </div>
+
+        <!-- Main Content edit member form -->
+        <div class="main-content" id="editMembershipform">
+            <h3>Edit Member</h3>
+            <form id="editMemberForm">
+                <div class="form">
+                    <div class="form-group">
+                        <label for="member-firstName">First Name:</label>
+                        <input type="text" class="input-size" id="member-firstName" name="member-firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="member-lastName">Last Name:</label>
+                        <input type="text" class="input-size" id="member-lastName" name="member-lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="member-username">Username:</label>
+                    <input type="username" class="input-size" id="member-username" name="member-username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="member-email">Email:</label>
+                    <input type="email" class="input-size" id="member-email" name="member-email" required>
+                </div>
+
+                <div class="form">
+                    <div class="form-group">
+                        <label for="member-password">Password:</label>
+                        <input type="password" class="input-size" id="member-password" name="member-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="member-repassword">Re-enter Password:</label>
+                        <input type="password" class="input-size" id="member-repassword" name="member-repassword"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="member-phonenumber">Phone Number:</label>
+                    <input type="phone-number" class="input-size" id="member-phonenumber" name="member-phonenumber"
+                        required>
+                </div>
+
+                <div class='form-group'>
+                    <label for="member-gender">Member Type:</label>
+                    <select class="input-size" id="memberGender" name="memberGender">
+                        <option value="">-- Select Gender --</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+
+                <!-- Runner Type (hidden by default) -->
+                <div class="form-group hidden" id="runnerTypeGroup">
+                    <label for="member-runnerType">Runner Type:</label>
+                    <select class="input-size" id="member-runnerType" name="member-runnerType">
+                        <option value="">-- Select Runner Type --</option>
+                        <option value="Grab">Grab</option>
+                        <option value="FoodPanda">Food Panda</option>
+                    </select>
+                </div>
+                <button type="submit" class="add-membershipform-btn">Add Member</button>
+            </form>
+            <button type="submit" class="edit-membershipform-btn" onclick="editMember()">Edit Member</button>
+            <button type="reset" class="cancel-edit-btn">Cancel</button>
+            </form>
+        </div>
+
+        <!-- Main orders page -->
+        <div class="main-content" id="orders">
+            <h3>Orders</h3>
+            <!-- Navigation Tabs -->
+            <div class="nav-tabs">
+                <button class="nav-tab active" onclick="showOrderTab('new-orders',event)">New Orders</button>
+                <button class="nav-tab" onclick="showOrderTab('current-orders',event)">Current Orders</button>
+                <button class="nav-tab" onclick="showOrderTab('completed-orders',event)">Completed Orders</button>
+            </div>
+
+            <!-- New Orders -->
+            <div id="new-orders" class="page active">
+                <div class="orders-container">
+                    <div class="orders-header">
+                        <div>Order Id</div>
+                        <div>Customer</div>
+                        <div>Address</div>
+                        <div>Action</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Orders Page -->
+            <div id="current-orders" class="page">
+                <h2 class="page-title">Current Orders</h2>
+
+                <div class="orders-container">
+                    <div class="orders-header">
+                        <div>Order&nbsp;Id</div>
+                        <div>Customer</div>
+                        <div>Address</div>
+                        <div>Action</div>
+                    </div>
+
+                    <!-- Row 1 -->
+                    <div class="order-row highlighted">
+                        <div class="order-id">Order#22007</div>
+                        <div class="customer-name">Nurul Aisyah</div>
+                        <div class="customer-address">77, Jalan Kenanga, Taman Melawati, 75250 Melaka</div>
+                        <div class="assign-runner">
+                            <select onchange="assignRunner(this.value, '22007')" class="runner-dropdown">
+                                <option selected disabled>Assign Runner</option>
+                                <option value="Runner1">Grab</option>
+                                <option value="Runner2">Food Panda</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="order-row">
+                        <div class="order-id">Order#22008</div>
+                        <div class="customer-name">Lim Guan&nbsp;Yi</div>
+                        <div class="customer-address">56, Jalan Tun Fatimah, Taman Sri Melaka, 75400 Melaka</div>
+                        <div class="assign-runner">
+                            <select onchange="assignRunner(this.value, '22008')" class="runner-dropdown">
+                                <option selected disabled>Assign Runner</option>
+                                <option value="Runner1">Grab</option>
+                                <option value="Runner2">Food Panda</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="order-row highlighted">
+                        <div class="order-id">Order#22009</div>
+                        <div class="customer-name">Maria Gonzales</div>
+                        <div class="customer-address">101, Jalan Tun Razak, Taman Maju, 75350 Melaka</div>
+                        <div class="assign-runner">
+                            <select onchange="assignRunner(this.value, '22009')" class="runner-dropdown">
+                                <option selected disabled>Assign Runner</option>
+                                <option value="Runner1">Grab</option>
+                                <option value="Runner2">Food Panda</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Row 4 -->
+                    <div class="order-row">
+                        <div class="order-id">Order#22010</div>
+                        <div class="customer-name">Jason Lee</div>
+                        <div class="customer-address">9, Jalan Bunga Raya, Taman Damai, 75460 Melaka</div>
+                        <div class="assign-runner">
+                            <select onchange="assignRunner(this.value, '22010')" class="runner-dropdown">
+                                <option selected disabled>Assign Runner</option>
+                                <option value="Runner1">Grab</option>
+                                <option value="Runner2">Food Panda</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Row 5 -->
+                    <div class="order-row highlighted">
+                        <div class="order-id">Order#22011</div>
+                        <div class="customer-name">Putri Zulaikha</div>
+                        <div class="customer-address">42, Jalan Permata, Taman Indah, 75240 Melaka</div>
+                        <div class="assign-runner">
+                            <select onchange="assignRunner(this.value, '22011')" class="runner-dropdown">
+                                <option selected disabled>Assign Runner</option>
+                                <option value="Runner1">Grab</option>
+                                <option value="Runner2">Food Panda</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Row 6 -->
+                    <div class="order-row">
+                        <div class="order-id">Order#22012</div>
+                        <div class="customer-name">Ravi Kumar</div>
+                        <div class="customer-address">23, Jalan Seri Cemerlang, Taman Damai Mewah, 75310 Melaka</div>
+                        <div class="assign-runner">
+                            <select onchange="assignRunner(this.value, '22012')" class="runner-dropdown">
+                                <option selected disabled>Assign Runner</option>
+                                <option value="Runner1">Grab</option>
+                                <option value="Runner2">Food Panda</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completed Orders Page -->
+            <div id="completed-orders" class="page">
+                <h2 class="page-title">Completed Orders</h2>
+
+
+                <div class="orders-container">
+                    <div class="orders-header">
+                        <div>Order Id</div>
+                        <div>Customer</div>
+                        <div>Completed At</div>
+                        <div>Status</div>
+                    </div>
+
+                    <div class="order-row">
+                        <div class="order-id">Order#21345</div>
+                        <div class="customer-name">Michelle</div>
+                        <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                        <div class="status-tag status-waiting" style="background: #96ff96; color: #214b17;">
+                            Completed</div>
+                    </div>
+
+                    <div class="order-row highlighted">
+                        <div class="order-id">Order#21346</div>
+                        <div class="customer-name">Marvin McKinney</div>
+                        <div class="customer-address">100, Jalan Bandar, Taman Bahagia, 50000 Durian Tunggal</div>
+                        <div class="status-tag status-waiting" style="background: #96ff96; color: #214b17;">
+                            Completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="notifications" class="main-content">
+            <div class="notifications-container">
+                <div class="notifications-header">
+                    <div class="notifications-title">
+                        <i class="fas fa-bell"></i>
+                        Delivery Notifications
+                    </div>
+                    <button class="mark-all-read" onclick="markAllAsRead()">
+                        <i class="fas fa-check-double"></i> Mark All Read
+                    </button>
+                </div>
+
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterNotifications('all')">All</button>
+                    <button class="filter-tab" onclick="filterNotifications('unread')">Unread</button>
+                    <button class="filter-tab" onclick="filterNotifications('preparing')">Preparing</button>
+                    <button class="filter-tab" onclick="filterNotifications('ready')">Ready</button>
+                    <button class="filter-tab" onclick="filterNotifications('delivered')">Delivered</button>
+                </div>
+
+                <div class="notifications-list" id="notifications-list">
+                    <!-- Notifications will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+
+        <script src="./assets/javascript/dashboardStaff.js"></script>
+        <script src="./assets/js/notifications.js"></script>
+</body>
+
+</html>
