@@ -45,6 +45,16 @@
 
                 <form class="registration-form">
                     <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <input type="text" id="phoneNumber" name="phoneNumber" required>
+                    </div>
+
+                    <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" required>
                     </div>
@@ -52,6 +62,11 @@
                     <div class="form-group">
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" required></textarea>
                     </div>
 
                     <div class="form-group">
@@ -80,35 +95,74 @@
         </div>
     </div>
 
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <p>Loading...</p>
+    </div>
 
     <script>
+
         document.addEventListener('DOMContentLoaded', function() {
             // Logo click event to redirect to landing page
             document.querySelector('.logo').addEventListener('click', function() {
                 window.location.href = 'landing.html';
             });
 
-            // Handle form submission
+                // Handle form submission
             document.querySelector('.registration-form').addEventListener('submit', function(event) {
-                event.preventDefault(); // Prevent the default form submission
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Show loading indicator
+                document.getElementById('loadingIndicator').style.display = 'flex';
 
                 // Get the input values
+                const fullName = document.getElementById('fullName').value;
+                const phoneNumber = document.getElementById('phoneNumber').value;
                 const email = document.getElementById('email').value;
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
+                const address = document.getElementById('address').value;
 
                 // Validate input data
                 if (validateEmail(email) && validatePassword(password)) {
-                    // Store user data
-                    const userData = {
-                        email: email,
-                        username: username,
-                        password: password
-                    };
+                    // Create a FormData object to send the data
+                    const formData = new FormData();
+                    formData.append('fullName', fullName);
+                    formData.append('phoneNumber', phoneNumber);
+                    formData.append('email', email);
+                    formData.append('username', username);
+                    formData.append('password', password);
+                    formData.append('address', address);
 
-                    // Redirect to the login page
-                    alert('Registration successful! You can now log in.');
-                    window.location.href = 'userLogin.html';
+                    // Send the data to register.php using fetch
+
+                    fetch('backend/register.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())  // Get raw response text
+                    .then(text => {
+
+                        // Hide loading indicator
+                        document.getElementById('loadingIndicator').style.display = 'none';
+
+                        console.log("Raw response:", text);
+                        try {
+                            const data = JSON.parse(text);
+                            alert(data.message || JSON.stringify(data));
+                            if (data.redirect) {
+                                window.location.href = data.redirect;
+                            }
+                        } catch (err) {
+                            console.error("JSON parse error:", err);
+                            alert("Invalid server response:\n" + text); // Show raw response for debugging
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                        alert('There was an error during registration. Please try again.');
+                    });
                 } else {
                     alert('Please ensure your email and password meet the requirements.');
                 }
@@ -131,8 +185,6 @@
                 return minLength && hasUppercase && hasLowercase && hasNumber && hasSpecialChar;
             }
         });
-
-
     </script>
 </body>
 </html>

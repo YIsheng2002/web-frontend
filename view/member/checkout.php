@@ -1,3 +1,16 @@
+<?php
+session_start(); // Start the session
+// Check if the user is logged in
+if (!isset($_SESSION['user']) || !$_SESSION['user']['is_logged_in']) {
+    // Redirect to login page if not logged in
+    header('Location: userLogin.html');
+    exit();
+}
+
+$cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+$userId = $_SESSION['user']['user_id'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,24 +47,20 @@
                 </h2>
                 <div class="delivery-info">
                     <div class="info-row">
-                        <span class="info-label">Recipient Name :</span>
-                        <span class="info-value">XXXXX XXX XX</span>
+                        <span for="recipientName" class="info-label">Recipient Name :</span>
+                        <input type="text" id="recipientName" class="info-value" value="<?php echo isset($_SESSION['user']['full_name']) ? htmlspecialchars($_SESSION['user']['full_name']) : ''; ?>" required>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">Phone Number :</span>
-                        <span class="info-value">xxx-xxxxxxx</span>
+                        <label for="phoneNumber" class="info-label">Phone Number:</label>
+                        <input type="text" id="phoneNumber" class="info-value" value="<?php echo isset($_SESSION['user']['phone_number']) ? htmlspecialchars($_SESSION['user']['phone_number']) : ''; ?>" required>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">City :</span>
-                        <span class="info-value">XXXXX</span>
+                        <span for="email" class="info-label">Email :</span>
+                        <input type="text" id="email" class="info-value" value="<?php echo isset($_SESSION['user']['email']) ? htmlspecialchars($_SESSION['user']['email']) : ''; ?>" required>
                     </div>
                     <div class="info-row">
-                        <span class="info-label">Email :</span>
-                        <span class="info-value">xxxxxxxxxxxxxxxxxxxxxxxx@xxxx.xxx</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Address :</span>
-                        <span class="info-value">xxx, xxxxxx xxxxxx,xxxx xxx</span>
+                        <label for="address" class="info-label">Address:</label>
+                        <input type="text" id="address" class="info-value" value="<?php echo isset($_SESSION['user']['address']) ? htmlspecialchars($_SESSION['user']['address']) : ''; ?>" required>
                     </div>
                 </div>
             </div>
@@ -104,51 +113,30 @@
         </div>
     </main>
 
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+        <p>Loading...</p>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
             // Delivery fee and tax rate
             const deliveryFee = 6.00;
             const taxRate = 0.24; // 24% tax rate
-            
-            // Function to parse URL parameters
-            function getQueryParams() {
-                const params = {};
-                const queryString = window.location.search.substring(1);
-                const regex = /([^&=]+)=([^&]*)/g;
-                let m;
-                while (m = regex.exec(queryString)) {
-                    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
-                }
-                console.log(params);
-                return params;
-            }
 
-            // Retrieve cart items from URL parameters
-            const cartItems = [];
-            const params = getQueryParams();
-            for (let i = 1; params[`name${i}`]; i++) {
-                const rawPrice = params[`price${i}`].replace(/[^0-9.]/g, ''); // remove $ or any non-digit/period characters
-                cartItems.push({
-                    name: params[`name${i}`],
-                    price: parseFloat(rawPrice),
-                    quantity: parseInt(params[`quantity${i}`])
-                });
-            }
+            const cartItems = <?php echo json_encode($cartItems); ?>;
 
-            console.log(cartItems);
-
-            // Populate cart items in the checkout page
             const cartItemsContainer = document.querySelector('.cart-items');
             cartItems.forEach((item, index) => {
                 const cartItemHTML = `
                     <div class="cart-item">
                         <div class="item-image">
-                            <img src="assets/images/cheese_burger.png" alt="${item.name}">
+                            <img src="${item.picture}" alt="${item.name}">
                         </div>
                         <div class="item-details">
                             <h3 class="item-name">${item.name}</h3>
-                            <p class="item-price">$${item.price.toFixed(2)}</p>
+                            <p class="item-price">RM${item.price.toFixed(2)}</p>
                             <div class="quantity-controls">
                                 <button class="quantity-btn minus-btn" data-item="${index}">-</button>
                                 <span class="quantity" data-item="${index}">${item.quantity}</span>
@@ -173,9 +161,9 @@
                 const tax = subtotal * taxRate;
                 const total = subtotal + deliveryFee + tax;
 
-                document.getElementById('subtotal').textContent = `$ ${subtotal.toFixed(2)}`;
-                document.getElementById('tax').textContent = `$ ${tax.toFixed(2)}`;
-                document.getElementById('total').textContent = `$ ${total.toFixed(2)}`;
+                document.getElementById('subtotal').textContent = `RM ${subtotal.toFixed(2)}`;
+                document.getElementById('tax').textContent = `RM ${tax.toFixed(2)}`;
+                document.getElementById('total').textContent = `RM ${total.toFixed(2)}`;
             }
 
             // Plus button functionality
@@ -218,25 +206,49 @@
             
             // Action buttons
             document.querySelector('.confirm-btn').addEventListener('click', function() {
-                // Get the selected payment method
-                const paymentMethods = document.querySelectorAll('input[name="payment-method"]');
-                let selectedPaymentMethod;
-                
-                paymentMethods.forEach(method => {
-                    if (method.checked) {
-                        selectedPaymentMethod = method.value;
+                // Show loading indicator
+                document.getElementById('loadingIndicator').style.display = 'flex';
+
+                // Get delivery and payment details
+                const recipientName = document.getElementById('recipientName').value;
+                const phoneNumber = document.getElementById('phoneNumber').value;
+                const email = document.getElementById('email').value;
+                const address = document.getElementById('address').value;
+                const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+
+                // Prepare order data
+                const orderData = {
+                    user_id: <?php echo $userId; ?>,
+                    address: address,
+                    payment_method: paymentMethod,
+                    cart_items: cartItems
+                };
+
+                // Send order data to create_order.php
+                fetch('backend/create_order.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                // Hide loading indicator
+                document.getElementById('loadingIndicator').style.display = 'none';
+
+                    if (data.status === 'success') {
+                        alert('Order placed successfully! Your order ID is: ' + data.order_id);
+                        window.location.href = 'menu.php'; // Redirect to menu page
+                    } else {
+                        alert('Error: ' + data.message);
                     }
+                })
+                .catch(error => {
+                    console.error('Error placing order:', error);
                 });
-                // Display a success message based on the selected payment method
-                if (selectedPaymentMethod) {
-                    alert(`Order confirmed! Payment will be processed via ${selectedPaymentMethod}.`);
-                    alert('Your order id is #12456. Please check order status using the id.')
-                    window.location.href = 'menu.html';
-                } else {
-                    alert('Please select a payment method.');
-                }
             });
-            
+
             document.querySelector('.cancel-btn').addEventListener('click', function() {
                 if (confirm('Are you sure you want to cancel this order?')) {
                     window.history.back();
